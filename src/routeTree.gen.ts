@@ -25,6 +25,7 @@ import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as PerformanceRouteImport } from './routes/performance'
+import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
@@ -114,6 +115,11 @@ const PerformanceRoute = PerformanceRouteImport.update({
   path: '/performance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PluginsRoute = PluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
@@ -279,6 +289,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
@@ -332,6 +344,7 @@ export interface RootRouteChildren {
   GarageRoute: typeof GarageRoute
   HealthRoute: typeof HealthRoute
   PerformanceRoute: typeof PerformanceRoute
+  PluginsRoute: typeof PluginsRoute
   ReportsRoute: typeof ReportsRoute
   SafetyRoute: typeof SafetyRoute
   SecurityRoute: typeof SecurityRoute
@@ -456,6 +469,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerformanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plugins': {
+      id: '/plugins'
+      path: '/plugins'
+      fullPath: '/plugins'
+      preLoaderRoute: typeof PluginsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports': {
       id: '/reports'
       path: '/reports'
@@ -532,6 +552,7 @@ const rootRouteChildren: RootRouteChildren = {
   GarageRoute: GarageRoute,
   HealthRoute: HealthRoute,
   PerformanceRoute: PerformanceRoute,
+  PluginsRoute: PluginsRoute,
   ReportsRoute: ReportsRoute,
   SafetyRoute: SafetyRoute,
   SecurityRoute: SecurityRoute,
