@@ -37,6 +37,8 @@ import {
 } from "./monitors";
 import { PIDS, PID_BY_ID, type PidDef, type PidId } from "./pids";
 import { classifyHardwareError } from "./errors";
+import { appendAudit, type AuditEntry } from "./audit";
+import { loadOperator, permissionState } from "./roles";
 import { decodeMode01Signal, type DecodedSignal } from "./decoder";
 
 export interface EcuReport {
@@ -694,20 +696,49 @@ export function ObdProvider({ children }: { children: ReactNode }) {
 
   const clearDtcs = useCallback(async () => {
     if (!elm.connected) throw new Error("OBD ADAPTER NOT CONNECTED");
+    const operator = loadOperator();
+    const permission = permissionState(operator, "CLEAR_DTC");
+    const audit = (result: AuditEntry["result"], errors: string[]) =>
+      appendAudit({
+        user: operator.name || "UNNAMED OPERATOR",
+        role: operator.role,
+        vehicle: activeVehicleId,
+        vin: vin || null,
+        ecu: ecuName || null,
+        file: null,
+        calibration: calId || null,
+        operation: "Clear stored fault codes (Mode 04)",
+        permission: "CLEAR_DTC",
+        authorization: permission,
+        hardware: adapterName || null,
+        result,
+        errors,
+      });
+
+    if (permission !== "GRANTED") {
+      toast.error("Clearing blocked", {
+        description: `${permission} — grant it under Settings & Roles before clearing fault codes.`,
+      });
+      await audit("BLOCKED", [permission]);
+      return;
+    }
+
     const resp = await elm.send("04", 8000);
     if (isNegative(resp) || !hasPositiveModeResponse(resp, 4)) {
       toast.error("Clear rejected by the ECU", {
         description: `VERIFICATION FAILED: ${resp || "no ECU response"}`,
       });
+      await audit("FAILED", [`VERIFICATION FAILED: ${resp || "no ECU response"}`]);
       return;
     }
     toast.success("DTC CLEAR SUCCESSFUL", {
       description: "The ECU returned the positive Mode 04 response. Readiness and freeze-frame data may have reset.",
     });
+    await audit("SUCCESS", []);
     setFreeze(null);
     markHistoryCleared();
     await scanDtcs();
-  }, [elm, scanDtcs, markHistoryCleared]);
+  }, [elm, scanDtcs, markHistoryCleared, activeVehicleId, vin, ecuName, calId, adapterName]);
 
   const sendRaw = useCallback((cmd: string) => elm.send(cmd.trim().toUpperCase(), 10000), [elm]);
 

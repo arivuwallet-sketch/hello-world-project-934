@@ -13,3 +13,11 @@
 - [x] Performance measurement (dual speed source, 0-60, quarter mile, dyno import)
 - [x] Health/events/maintenance/anomaly analytics, reporting, service history
 - [ ] Physical hardware validation with real adapters, ECUs and authorised programming interface (blocked: requires hardware)
+- [x] Roles, permissions and explicit high-risk authorisation
+- [x] Hash-chained tamper-evident audit log, wired into fault-code clearing
+- [x] Settings: units, theme, language, time zone, date format, reduced motion
+- [x] Connection health from counted events (no quality percentages)
+- [x] Extension architecture with mandatory provenance on every plugin
+- [x] Feature availability labels and critical display validation
+- [x] Repository scan: no randomness or simulated data in production code
+- [x] Automated tests for roles, audit integrity, units, health, availability, plugins

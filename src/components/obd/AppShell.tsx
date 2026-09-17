@@ -8,7 +8,10 @@ import {
   ClipboardList,
   BookOpenCheck,
   Car,
+  Cog,
   Cpu,
+  FileLock2,
+  Puzzle,
   FileText,
   Gauge as GaugeIcon,
   HeartPulse,
@@ -60,6 +63,9 @@ const NAV = [
   { to: "/sessions", label: "Sessions", icon: History },
   { to: "/compare", label: "Compare", icon: ArrowLeftRight },
   { to: "/adapters", label: "Adapters", icon: Usb },
+  { to: "/plugins", label: "Extensions", icon: Puzzle },
+  { to: "/audit", label: "Audit Log", icon: FileLock2 },
+  { to: "/settings", label: "Settings & Roles", icon: Cog },
   { to: "/data-sources", label: "Data Sources", icon: BookOpenCheck },
 ] as const;
 

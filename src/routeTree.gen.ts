@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActuationsRouteImport } from './routes/actuations'
 import { Route as AdaptersRouteImport } from './routes/adapters'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as CanbusRouteImport } from './routes/canbus'
 import { Route as CodesRouteImport } from './routes/codes'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -24,11 +25,13 @@ import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as PerformanceRouteImport } from './routes/performance'
+import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TuningRouteImport } from './routes/tuning'
 import { Route as VehicleRouteImport } from './routes/vehicle'
 
@@ -45,6 +48,11 @@ const ActuationsRoute = ActuationsRouteImport.update({
 const AdaptersRoute = AdaptersRouteImport.update({
   id: '/adapters',
   path: '/adapters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CanbusRoute = CanbusRouteImport.update({
@@ -107,6 +115,11 @@ const PerformanceRoute = PerformanceRouteImport.update({
   path: '/performance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PluginsRoute = PluginsRouteImport.update({
+  id: '/plugins',
+  path: '/plugins',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsRoute = ReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
@@ -132,6 +145,11 @@ const SessionsRoute = SessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TuningRoute = TuningRouteImport.update({
   id: '/tuning',
   path: '/tuning',
@@ -147,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -159,11 +178,13 @@ export interface FileRoutesByFullPath {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -171,6 +192,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -183,11 +205,13 @@ export interface FileRoutesByTo {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -196,6 +220,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -208,11 +233,13 @@ export interface FileRoutesById {
   '/garage': typeof GarageRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
+  '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -222,6 +249,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -234,11 +262,13 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
@@ -246,6 +276,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -258,11 +289,13 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   id:
@@ -270,6 +303,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -282,11 +316,13 @@ export interface FileRouteTypes {
     | '/garage'
     | '/health'
     | '/performance'
+    | '/plugins'
     | '/reports'
     | '/safety'
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   fileRoutesById: FileRoutesById
@@ -295,6 +331,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActuationsRoute: typeof ActuationsRoute
   AdaptersRoute: typeof AdaptersRoute
+  AuditRoute: typeof AuditRoute
   CanbusRoute: typeof CanbusRoute
   CodesRoute: typeof CodesRoute
   CompareRoute: typeof CompareRoute
@@ -307,11 +344,13 @@ export interface RootRouteChildren {
   GarageRoute: typeof GarageRoute
   HealthRoute: typeof HealthRoute
   PerformanceRoute: typeof PerformanceRoute
+  PluginsRoute: typeof PluginsRoute
   ReportsRoute: typeof ReportsRoute
   SafetyRoute: typeof SafetyRoute
   SecurityRoute: typeof SecurityRoute
   ServiceRoute: typeof ServiceRoute
   SessionsRoute: typeof SessionsRoute
+  SettingsRoute: typeof SettingsRoute
   TuningRoute: typeof TuningRoute
   VehicleRoute: typeof VehicleRoute
 }
@@ -337,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/adapters'
       fullPath: '/adapters'
       preLoaderRoute: typeof AdaptersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/canbus': {
@@ -423,6 +469,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerformanceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plugins': {
+      id: '/plugins'
+      path: '/plugins'
+      fullPath: '/plugins'
+      preLoaderRoute: typeof PluginsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports': {
       id: '/reports'
       path: '/reports'
@@ -458,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tuning': {
       id: '/tuning'
       path: '/tuning'
@@ -479,6 +539,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActuationsRoute: ActuationsRoute,
   AdaptersRoute: AdaptersRoute,
+  AuditRoute: AuditRoute,
   CanbusRoute: CanbusRoute,
   CodesRoute: CodesRoute,
   CompareRoute: CompareRoute,
@@ -491,11 +552,13 @@ const rootRouteChildren: RootRouteChildren = {
   GarageRoute: GarageRoute,
   HealthRoute: HealthRoute,
   PerformanceRoute: PerformanceRoute,
+  PluginsRoute: PluginsRoute,
   ReportsRoute: ReportsRoute,
   SafetyRoute: SafetyRoute,
   SecurityRoute: SecurityRoute,
   ServiceRoute: ServiceRoute,
   SessionsRoute: SessionsRoute,
+  SettingsRoute: SettingsRoute,
   TuningRoute: TuningRoute,
   VehicleRoute: VehicleRoute,
 }
