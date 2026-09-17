@@ -6,7 +6,7 @@ interface GaugeProps {
   pid: PidId;
   value: number | undefined;
   size?: "lg" | "sm";
-  details?: DecodedSignal;
+  details?: DecodedSignal | undefined;
 }
 
 const ARC_START = 135;
@@ -113,7 +113,7 @@ export function Gauge({ pid, value, size = "lg", details }: GaugeProps) {
   );
 }
 
-export function MiniStat({ pid, value, details }: { pid: PidId; value: number | undefined; details?: DecodedSignal }) {
+export function MiniStat({ pid, value, details }: { pid: PidId; value: number | undefined; details?: DecodedSignal | undefined }) {
   const def = PID_BY_ID[pid];
   if (!def) return null;
   const has = typeof value === "number" && Number.isFinite(value);
