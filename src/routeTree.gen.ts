@@ -29,6 +29,7 @@ import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as FullScanRouteImport } from './routes/full-scan'
 import { Route as GarageRouteImport } from './routes/garage'
 import { Route as GraphsRouteImport } from './routes/graphs'
+import { Route as GuidedDiagnosticsRouteImport } from './routes/guided-diagnostics'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as PluginsRouteImport } from './routes/plugins'
@@ -142,6 +143,11 @@ const GraphsRoute = GraphsRouteImport.update({
   path: '/graphs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidedDiagnosticsRoute = GuidedDiagnosticsRouteImport.update({
+  id: '/guided-diagnostics',
+  path: '/guided-diagnostics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HealthRoute = HealthRouteImport.update({
   id: '/health',
   path: '/health',
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/full-scan': typeof FullScanRoute
   '/garage': typeof GarageRoute
   '/graphs': typeof GraphsRoute
+  '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/full-scan': typeof FullScanRoute
   '/garage': typeof GarageRoute
   '/graphs': typeof GraphsRoute
+  '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
@@ -293,6 +301,7 @@ export interface FileRoutesById {
   '/full-scan': typeof FullScanRoute
   '/garage': typeof GarageRoute
   '/graphs': typeof GraphsRoute
+  '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
@@ -329,6 +338,7 @@ export interface FileRouteTypes {
     | '/full-scan'
     | '/garage'
     | '/graphs'
+    | '/guided-diagnostics'
     | '/health'
     | '/performance'
     | '/plugins'
@@ -363,6 +373,7 @@ export interface FileRouteTypes {
     | '/full-scan'
     | '/garage'
     | '/graphs'
+    | '/guided-diagnostics'
     | '/health'
     | '/performance'
     | '/plugins'
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/full-scan'
     | '/garage'
     | '/graphs'
+    | '/guided-diagnostics'
     | '/health'
     | '/performance'
     | '/plugins'
@@ -432,6 +444,7 @@ export interface RootRouteChildren {
   FullScanRoute: typeof FullScanRoute
   GarageRoute: typeof GarageRoute
   GraphsRoute: typeof GraphsRoute
+  GuidedDiagnosticsRoute: typeof GuidedDiagnosticsRoute
   HealthRoute: typeof HealthRoute
   PerformanceRoute: typeof PerformanceRoute
   PluginsRoute: typeof PluginsRoute
@@ -588,6 +601,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GraphsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guided-diagnostics': {
+      id: '/guided-diagnostics'
+      path: '/guided-diagnostics'
+      fullPath: '/guided-diagnostics'
+      preLoaderRoute: typeof GuidedDiagnosticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/health': {
       id: '/health'
       path: '/health'
@@ -696,6 +716,7 @@ const rootRouteChildren: RootRouteChildren = {
   FullScanRoute: FullScanRoute,
   GarageRoute: GarageRoute,
   GraphsRoute: GraphsRoute,
+  GuidedDiagnosticsRoute: GuidedDiagnosticsRoute,
   HealthRoute: HealthRoute,
   PerformanceRoute: PerformanceRoute,
   PluginsRoute: PluginsRoute,
