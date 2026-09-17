@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { OfflineNotice } from "@/components/obd/ConnectionBar";
 import { useObd } from "@/lib/obd/store";
 import { isNegative } from "@/lib/obd/elm327";
+import { decodeCanFrame, parseMonitorLine } from "@/lib/obd/can-decode";
+import { loadImportedCanDatasets } from "@/lib/obd/dataset-store";
+import type { CanSignalDataset } from "@/lib/obd/importers/dbc";
 
 export const Route = createFileRoute("/canbus")({
   head: () => ({
