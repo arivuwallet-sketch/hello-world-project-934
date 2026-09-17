@@ -32,10 +32,11 @@ export function reassembleIsoTp(frames: number[][]): IsoTpMessage {
 }
 
 export function parseFlowControl(frame: number[]) {
-  if (!frame.length || frame[0] >> 4 !== 3 || frame.length < 3) {
+  const pci = frame[0];
+  if (pci == null || pci >> 4 !== 3 || frame.length < 3) {
     throw new Error("INVALID ISO-TP FRAME");
   }
-  const status = (frame[0] as number) & 0x0f;
+  const status = pci & 0x0f;
   if (status > 2) throw new Error("INVALID ISO-TP FRAME");
   const encodedStMin = frame[2] as number;
   const stMinMs = encodedStMin <= 0x7f ? encodedStMin : encodedStMin >= 0xf1 && encodedStMin <= 0xf9 ? (encodedStMin - 0xf0) / 10 : null;
