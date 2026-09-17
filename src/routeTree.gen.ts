@@ -10,33 +10,193 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActuationsRouteImport } from './routes/actuations'
+import { Route as AdaptersRouteImport } from './routes/adapters'
+import { Route as CanbusRouteImport } from './routes/canbus'
+import { Route as CodesRouteImport } from './routes/codes'
+import { Route as CompareRouteImport } from './routes/compare'
+import { Route as DataSourcesRouteImport } from './routes/data-sources'
+import { Route as DeepScanRouteImport } from './routes/deep-scan'
+import { Route as ExpertRouteImport } from './routes/expert'
+import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
+import { Route as GarageRouteImport } from './routes/garage'
+import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as VehicleRouteImport } from './routes/vehicle'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActuationsRoute = ActuationsRouteImport.update({
+  id: '/actuations',
+  path: '/actuations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdaptersRoute = AdaptersRouteImport.update({
+  id: '/adapters',
+  path: '/adapters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CanbusRoute = CanbusRouteImport.update({
+  id: '/canbus',
+  path: '/canbus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CodesRoute = CodesRouteImport.update({
+  id: '/codes',
+  path: '/codes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataSourcesRoute = DataSourcesRouteImport.update({
+  id: '/data-sources',
+  path: '/data-sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeepScanRoute = DeepScanRouteImport.update({
+  id: '/deep-scan',
+  path: '/deep-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExpertRoute = ExpertRouteImport.update({
+  id: '/expert',
+  path: '/expert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreezeFrameRoute = FreezeFrameRouteImport.update({
+  id: '/freeze-frame',
+  path: '/freeze-frame',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GarageRoute = GarageRouteImport.update({
+  id: '/garage',
+  path: '/garage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionsRoute = SessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VehicleRoute = VehicleRouteImport.update({
+  id: '/vehicle',
+  path: '/vehicle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/actuations': typeof ActuationsRoute
+  '/adapters': typeof AdaptersRoute
+  '/canbus': typeof CanbusRoute
+  '/codes': typeof CodesRoute
+  '/compare': typeof CompareRoute
+  '/data-sources': typeof DataSourcesRoute
+  '/deep-scan': typeof DeepScanRoute
+  '/expert': typeof ExpertRoute
+  '/freeze-frame': typeof FreezeFrameRoute
+  '/garage': typeof GarageRoute
+  '/sessions': typeof SessionsRoute
+  '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/actuations': typeof ActuationsRoute
+  '/adapters': typeof AdaptersRoute
+  '/canbus': typeof CanbusRoute
+  '/codes': typeof CodesRoute
+  '/compare': typeof CompareRoute
+  '/data-sources': typeof DataSourcesRoute
+  '/deep-scan': typeof DeepScanRoute
+  '/expert': typeof ExpertRoute
+  '/freeze-frame': typeof FreezeFrameRoute
+  '/garage': typeof GarageRoute
+  '/sessions': typeof SessionsRoute
+  '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/actuations': typeof ActuationsRoute
+  '/adapters': typeof AdaptersRoute
+  '/canbus': typeof CanbusRoute
+  '/codes': typeof CodesRoute
+  '/compare': typeof CompareRoute
+  '/data-sources': typeof DataSourcesRoute
+  '/deep-scan': typeof DeepScanRoute
+  '/expert': typeof ExpertRoute
+  '/freeze-frame': typeof FreezeFrameRoute
+  '/garage': typeof GarageRoute
+  '/sessions': typeof SessionsRoute
+  '/vehicle': typeof VehicleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/actuations'
+    | '/adapters'
+    | '/canbus'
+    | '/codes'
+    | '/compare'
+    | '/data-sources'
+    | '/deep-scan'
+    | '/expert'
+    | '/freeze-frame'
+    | '/garage'
+    | '/sessions'
+    | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/actuations'
+    | '/adapters'
+    | '/canbus'
+    | '/codes'
+    | '/compare'
+    | '/data-sources'
+    | '/deep-scan'
+    | '/expert'
+    | '/freeze-frame'
+    | '/garage'
+    | '/sessions'
+    | '/vehicle'
+  id:
+    | '__root__'
+    | '/'
+    | '/actuations'
+    | '/adapters'
+    | '/canbus'
+    | '/codes'
+    | '/compare'
+    | '/data-sources'
+    | '/deep-scan'
+    | '/expert'
+    | '/freeze-frame'
+    | '/garage'
+    | '/sessions'
+    | '/vehicle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActuationsRoute: typeof ActuationsRoute
+  AdaptersRoute: typeof AdaptersRoute
+  CanbusRoute: typeof CanbusRoute
+  CodesRoute: typeof CodesRoute
+  CompareRoute: typeof CompareRoute
+  DataSourcesRoute: typeof DataSourcesRoute
+  DeepScanRoute: typeof DeepScanRoute
+  ExpertRoute: typeof ExpertRoute
+  FreezeFrameRoute: typeof FreezeFrameRoute
+  GarageRoute: typeof GarageRoute
+  SessionsRoute: typeof SessionsRoute
+  VehicleRoute: typeof VehicleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +208,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actuations': {
+      id: '/actuations'
+      path: '/actuations'
+      fullPath: '/actuations'
+      preLoaderRoute: typeof ActuationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adapters': {
+      id: '/adapters'
+      path: '/adapters'
+      fullPath: '/adapters'
+      preLoaderRoute: typeof AdaptersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/canbus': {
+      id: '/canbus'
+      path: '/canbus'
+      fullPath: '/canbus'
+      preLoaderRoute: typeof CanbusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/codes': {
+      id: '/codes'
+      path: '/codes'
+      fullPath: '/codes'
+      preLoaderRoute: typeof CodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data-sources': {
+      id: '/data-sources'
+      path: '/data-sources'
+      fullPath: '/data-sources'
+      preLoaderRoute: typeof DataSourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deep-scan': {
+      id: '/deep-scan'
+      path: '/deep-scan'
+      fullPath: '/deep-scan'
+      preLoaderRoute: typeof DeepScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/expert': {
+      id: '/expert'
+      path: '/expert'
+      fullPath: '/expert'
+      preLoaderRoute: typeof ExpertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freeze-frame': {
+      id: '/freeze-frame'
+      path: '/freeze-frame'
+      fullPath: '/freeze-frame'
+      preLoaderRoute: typeof FreezeFrameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/garage': {
+      id: '/garage'
+      path: '/garage'
+      fullPath: '/garage'
+      preLoaderRoute: typeof GarageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sessions': {
+      id: '/sessions'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof SessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vehicle': {
+      id: '/vehicle'
+      path: '/vehicle'
+      fullPath: '/vehicle'
+      preLoaderRoute: typeof VehicleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActuationsRoute: ActuationsRoute,
+  AdaptersRoute: AdaptersRoute,
+  CanbusRoute: CanbusRoute,
+  CodesRoute: CodesRoute,
+  CompareRoute: CompareRoute,
+  DataSourcesRoute: DataSourcesRoute,
+  DeepScanRoute: DeepScanRoute,
+  ExpertRoute: ExpertRoute,
+  FreezeFrameRoute: FreezeFrameRoute,
+  GarageRoute: GarageRoute,
+  SessionsRoute: SessionsRoute,
+  VehicleRoute: VehicleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
