@@ -97,6 +97,7 @@ export const PIDS: PidDef[] = [
     nominal: [70, 105],
     decode: (b) => (b[0] ?? 0) - 40,
     formula: "A − 40",
+    formula: "A − 40",
   },
   {
     id: "intakeTemp",
@@ -361,6 +362,7 @@ const EXTRA: PidDef[] = [
     bytes: 2,
     decimals: 2,
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 20, 2),
+    formula: "((A × 256) + B) ÷ 20",
   },
   {
     id: "absLoad",
@@ -373,6 +375,7 @@ const EXTRA: PidDef[] = [
     bytes: 2,
     decimals: 1,
     decode: (b) => c((((b[0] ?? 0) * 256 + (b[1] ?? 0)) * 100) / 255, 1),
+    formula: "((A × 256) + B) × 100 ÷ 255",
   },
   {
     id: "relThrottle",
@@ -385,6 +388,7 @@ const EXTRA: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "pedalD",
@@ -397,6 +401,7 @@ const EXTRA: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "pedalE",
@@ -409,6 +414,7 @@ const EXTRA: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "hybridLife",
@@ -422,6 +428,7 @@ const EXTRA: PidDef[] = [
     decimals: 1,
     nominal: [40, 100],
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
 ];
 
@@ -446,6 +453,7 @@ for (const cat of CAT_PIDS) {
     decimals: 1,
     nominal: [400, 800],
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 10 - 40, 1),
+    formula: "((A × 256) + B) ÷ 10 − 40",
   });
 }
 
@@ -475,6 +483,7 @@ for (let i = 1 as number; i <= 8; i++) {
     decimals: 3,
     nominal: [0.97, 1.03],
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 32768, 3),
+    formula: "((A × 256) + B) ÷ 32768",
   });
   EXTRA.push({
     id: `wbCur${i as O2Index}`,
@@ -488,6 +497,7 @@ for (let i = 1 as number; i <= 8; i++) {
     decimals: 3,
     nominal: [-1, 1],
     decode: (b) => c(((b[2] ?? 0) * 256 + (b[3] ?? 0)) / 256 - 128, 3),
+    formula: "((C × 256) + D) ÷ 256 − 128",
   });
   EXTRA.push({
     id: `wbVolt${i as O2Index}`,
@@ -501,6 +511,7 @@ for (let i = 1 as number; i <= 8; i++) {
     decimals: 3,
     nominal: [3.1, 3.5],
     decode: (b) => c(((b[2] ?? 0) * 256 + (b[3] ?? 0)) / 8192, 3),
+    formula: "((C × 256) + D) ÷ 8192",
   });
 }
 
