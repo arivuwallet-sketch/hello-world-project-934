@@ -21,6 +21,7 @@ import { Route as EvRouteImport } from './routes/ev'
 import { Route as ExpertRouteImport } from './routes/expert'
 import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
+import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as VehicleRouteImport } from './routes/vehicle'
 
@@ -84,6 +85,11 @@ const GarageRoute = GarageRouteImport.update({
   path: '/garage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PerformanceRoute = PerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsRoute = SessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/performance'
     | '/sessions'
     | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/performance'
     | '/sessions'
     | '/vehicle'
   id:
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/performance'
     | '/sessions'
     | '/vehicle'
   fileRoutesById: FileRoutesById
@@ -208,6 +220,7 @@ export interface RootRouteChildren {
   ExpertRoute: typeof ExpertRoute
   FreezeFrameRoute: typeof FreezeFrameRoute
   GarageRoute: typeof GarageRoute
+  PerformanceRoute: typeof PerformanceRoute
   SessionsRoute: typeof SessionsRoute
   VehicleRoute: typeof VehicleRoute
 }
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GarageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/performance': {
+      id: '/performance'
+      path: '/performance'
+      fullPath: '/performance'
+      preLoaderRoute: typeof PerformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions': {
       id: '/sessions'
       path: '/sessions'
@@ -328,6 +348,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExpertRoute: ExpertRoute,
   FreezeFrameRoute: FreezeFrameRoute,
   GarageRoute: GarageRoute,
+  PerformanceRoute: PerformanceRoute,
   SessionsRoute: SessionsRoute,
   VehicleRoute: VehicleRoute,
 }
