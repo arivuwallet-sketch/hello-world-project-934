@@ -37,6 +37,8 @@ import {
 } from "./monitors";
 import { PIDS, PID_BY_ID, type PidDef, type PidId } from "./pids";
 import { classifyHardwareError } from "./errors";
+import { appendAudit, type AuditEntry } from "./audit";
+import { loadOperator, permissionState } from "./roles";
 import { decodeMode01Signal, type DecodedSignal } from "./decoder";
 
 export interface EcuReport {
