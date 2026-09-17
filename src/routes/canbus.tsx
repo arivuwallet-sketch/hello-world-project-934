@@ -339,20 +339,46 @@ function CanBusPage() {
           <h2 className="mb-2 text-sm font-semibold">
             Frame stream{" "}
             <span className="text-xs font-normal text-muted-foreground">
-              ({visible.length} shown)
+              ({visible.length} shown ·{" "}
+              {canDatasets.length === 0
+                ? "no CAN database imported — raw hex only"
+                : `decoding with ${canDatasets.length} imported database${canDatasets.length === 1 ? "" : "s"}`}
+              )
             </span>
           </h2>
           <div className="readout h-[520px] overflow-auto rounded bg-background/60 p-3 text-xs leading-relaxed">
             {visible.length === 0 ? (
               <span className="text-muted-foreground">Idle — press Start capture.</span>
             ) : (
-              visible.map((f, i) => (
-                <div key={`${i}-${f}`} className="whitespace-pre">
-                  {f}
-                </div>
-              ))
+              visible.map((f, i) => {
+                const parsed = canDatasets.length > 0 ? parseMonitorLine(f) : null;
+                const decoded = parsed ? decodeCanFrame(parsed.canId, parsed.payload, canDatasets) : [];
+                return (
+                  <div key={`${i}-${f}`} className="whitespace-pre-wrap">
+                    <span>{f}</span>
+                    {decoded.length > 0 && (
+                      <span className="text-signal">
+                        {"  ⇢ "}
+                        {decoded
+                          .slice(0, 4)
+                          .map(
+                            (signal) =>
+                              `${signal.name}=${signal.value.toFixed(2)}${signal.unit ? ` ${signal.unit}` : ""}${
+                                signal.outOfRange ? " (OUT OF RANGE)" : ""
+                              }`,
+                          )
+                          .join("  ")}
+                      </span>
+                    )}
+                  </div>
+                );
+              })
             )}
           </div>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Decoded names come from the CAN databases you imported on Data Sources (for example commaai/opendbc, MIT).
+            A frame with no matching definition stays raw hex — nothing is inferred.
+          </p>
         </section>
 
         <section className="panel p-4">
