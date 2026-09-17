@@ -39,11 +39,13 @@ export const Route = createFileRoute("/settings")({
 });
 
 function SettingsPage() {
-  const { state, capabilities } = useObd();
+  const { state } = useObd();
   const [settings, setSettings] = useState<AppSettings>(loadSettings);
   const [operator, setOperator] = useState<Operator>(loadOperator);
   const support = typeof window !== "undefined" ? detectBrowserHardwareSupport() : null;
-  const datasetCount = listDatasets().length;
+  const datasetCount = signalRegistry()
+    .list()
+    .filter((dataset) => dataset.signals.length > 0).length;
 
   useEffect(() => {
     setSettings(loadSettings());
