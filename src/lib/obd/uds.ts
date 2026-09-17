@@ -26,8 +26,8 @@ export function parseUdsResponse(bytes: number[]): UdsResponse {
     return {
       positive: false,
       service,
-      requestService: bytes[1],
-      negativeResponseCode: bytes[2],
+      requestService: bytes[1] as number,
+      negativeResponseCode: bytes[2] as number,
       payload: bytes.slice(3),
     };
   }

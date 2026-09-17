@@ -7,26 +7,26 @@ const PID = /^[0-9A-F]{2,8}$/;
 function validFormula(value: unknown): value is DeclarativeFormula {
   if (!value || typeof value !== "object") return false;
   const formula = value as Record<string, unknown>;
-  return ["identity", "offset", "scale", "uint16"].includes(String(formula.operation));
+  return ["identity", "offset", "scale", "uint16"].includes(String(formula["operation"]));
 }
 
 function validSignal(value: unknown): value is SignalDefinition {
   if (!value || typeof value !== "object") return false;
   const signal = value as Record<string, unknown>;
   return (
-    typeof signal.id === "string" &&
-    /^[a-z0-9._-]{1,100}$/i.test(signal.id) &&
-    typeof signal.name === "string" &&
-    Number.isInteger(signal.mode) &&
-    Number(signal.mode) >= 1 &&
-    Number(signal.mode) <= 0xff &&
-    typeof signal.pid === "string" &&
-    PID.test(signal.pid.toUpperCase()) &&
-    Number.isInteger(signal.bytes) &&
-    Number(signal.bytes) > 0 &&
-    Number(signal.bytes) <= 4095 &&
-    typeof signal.unit === "string" &&
-    validFormula(signal.formula)
+    typeof signal["id"] === "string" &&
+    /^[a-z0-9._-]{1,100}$/i.test(signal["id"]) &&
+    typeof signal["name"] === "string" &&
+    Number.isInteger(signal["mode"]) &&
+    Number(signal["mode"]) >= 1 &&
+    Number(signal["mode"]) <= 0xff &&
+    typeof signal["pid"] === "string" &&
+    PID.test(signal["pid"].toUpperCase()) &&
+    Number.isInteger(signal["bytes"]) &&
+    Number(signal["bytes"]) > 0 &&
+    Number(signal["bytes"]) <= 4095 &&
+    typeof signal["unit"] === "string" &&
+    validFormula(signal["formula"])
   );
 }
 
