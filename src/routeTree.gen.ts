@@ -20,6 +20,7 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as ConnectionRouteImport } from './routes/connection'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as DeepScanRouteImport } from './routes/deep-scan'
+import { Route as DiagnosticTestsRouteImport } from './routes/diagnostic-tests'
 import { Route as DtcAnalysisRouteImport } from './routes/dtc-analysis'
 import { Route as EmissionsRouteImport } from './routes/emissions'
 import { Route as EvRouteImport } from './routes/ev'
@@ -38,6 +39,7 @@ import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ServiceRouteImport } from './routes/service'
+import { Route as ServiceFunctionsRouteImport } from './routes/service-functions'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TopologyRouteImport } from './routes/topology'
@@ -97,6 +99,11 @@ const DataSourcesRoute = DataSourcesRouteImport.update({
 const DeepScanRoute = DeepScanRouteImport.update({
   id: '/deep-scan',
   path: '/deep-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiagnosticTestsRoute = DiagnosticTestsRouteImport.update({
+  id: '/diagnostic-tests',
+  path: '/diagnostic-tests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DtcAnalysisRoute = DtcAnalysisRouteImport.update({
@@ -189,6 +196,11 @@ const ServiceRoute = ServiceRouteImport.update({
   path: '/service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiceFunctionsRoute = ServiceFunctionsRouteImport.update({
+  id: '/service-functions',
+  path: '/service-functions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsRoute = SessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -227,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/connection': typeof ConnectionRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/diagnostic-tests': typeof DiagnosticTestsRoute
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
@@ -245,6 +258,7 @@ export interface FileRoutesByFullPath {
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
+  '/service-functions': typeof ServiceFunctionsRoute
   '/sessions': typeof SessionsRoute
   '/settings': typeof SettingsRoute
   '/topology': typeof TopologyRoute
@@ -263,6 +277,7 @@ export interface FileRoutesByTo {
   '/connection': typeof ConnectionRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/diagnostic-tests': typeof DiagnosticTestsRoute
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
@@ -281,6 +296,7 @@ export interface FileRoutesByTo {
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
+  '/service-functions': typeof ServiceFunctionsRoute
   '/sessions': typeof SessionsRoute
   '/settings': typeof SettingsRoute
   '/topology': typeof TopologyRoute
@@ -300,6 +316,7 @@ export interface FileRoutesById {
   '/connection': typeof ConnectionRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/diagnostic-tests': typeof DiagnosticTestsRoute
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
@@ -318,6 +335,7 @@ export interface FileRoutesById {
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
+  '/service-functions': typeof ServiceFunctionsRoute
   '/sessions': typeof SessionsRoute
   '/settings': typeof SettingsRoute
   '/topology': typeof TopologyRoute
@@ -338,6 +356,7 @@ export interface FileRouteTypes {
     | '/connection'
     | '/data-sources'
     | '/deep-scan'
+    | '/diagnostic-tests'
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
@@ -356,6 +375,7 @@ export interface FileRouteTypes {
     | '/safety'
     | '/security'
     | '/service'
+    | '/service-functions'
     | '/sessions'
     | '/settings'
     | '/topology'
@@ -374,6 +394,7 @@ export interface FileRouteTypes {
     | '/connection'
     | '/data-sources'
     | '/deep-scan'
+    | '/diagnostic-tests'
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
@@ -392,6 +413,7 @@ export interface FileRouteTypes {
     | '/safety'
     | '/security'
     | '/service'
+    | '/service-functions'
     | '/sessions'
     | '/settings'
     | '/topology'
@@ -410,6 +432,7 @@ export interface FileRouteTypes {
     | '/connection'
     | '/data-sources'
     | '/deep-scan'
+    | '/diagnostic-tests'
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
@@ -428,6 +451,7 @@ export interface FileRouteTypes {
     | '/safety'
     | '/security'
     | '/service'
+    | '/service-functions'
     | '/sessions'
     | '/settings'
     | '/topology'
@@ -447,6 +471,7 @@ export interface RootRouteChildren {
   ConnectionRoute: typeof ConnectionRoute
   DataSourcesRoute: typeof DataSourcesRoute
   DeepScanRoute: typeof DeepScanRoute
+  DiagnosticTestsRoute: typeof DiagnosticTestsRoute
   DtcAnalysisRoute: typeof DtcAnalysisRoute
   EmissionsRoute: typeof EmissionsRoute
   EvRoute: typeof EvRoute
@@ -465,6 +490,7 @@ export interface RootRouteChildren {
   SafetyRoute: typeof SafetyRoute
   SecurityRoute: typeof SecurityRoute
   ServiceRoute: typeof ServiceRoute
+  ServiceFunctionsRoute: typeof ServiceFunctionsRoute
   SessionsRoute: typeof SessionsRoute
   SettingsRoute: typeof SettingsRoute
   TopologyRoute: typeof TopologyRoute
@@ -549,6 +575,13 @@ declare module '@tanstack/react-router' {
       path: '/deep-scan'
       fullPath: '/deep-scan'
       preLoaderRoute: typeof DeepScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diagnostic-tests': {
+      id: '/diagnostic-tests'
+      path: '/diagnostic-tests'
+      fullPath: '/diagnostic-tests'
+      preLoaderRoute: typeof DiagnosticTestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dtc-analysis': {
@@ -677,6 +710,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/service-functions': {
+      id: '/service-functions'
+      path: '/service-functions'
+      fullPath: '/service-functions'
+      preLoaderRoute: typeof ServiceFunctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions': {
       id: '/sessions'
       path: '/sessions'
@@ -727,6 +767,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnectionRoute: ConnectionRoute,
   DataSourcesRoute: DataSourcesRoute,
   DeepScanRoute: DeepScanRoute,
+  DiagnosticTestsRoute: DiagnosticTestsRoute,
   DtcAnalysisRoute: DtcAnalysisRoute,
   EmissionsRoute: EmissionsRoute,
   EvRoute: EvRoute,
@@ -745,6 +786,7 @@ const rootRouteChildren: RootRouteChildren = {
   SafetyRoute: SafetyRoute,
   SecurityRoute: SecurityRoute,
   ServiceRoute: ServiceRoute,
+  ServiceFunctionsRoute: ServiceFunctionsRoute,
   SessionsRoute: SessionsRoute,
   SettingsRoute: SettingsRoute,
   TopologyRoute: TopologyRoute,
