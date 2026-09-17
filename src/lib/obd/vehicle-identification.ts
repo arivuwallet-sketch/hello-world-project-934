@@ -136,7 +136,14 @@ export function identifyVehicle(input: IdentifyInput, coverage?: CoverageEntry[]
     timestamp: input.timestamp ?? null,
     attributes,
     coverageMatches: coverage
-      ? queryCoverage({ make, model, year: Number.isFinite(yearValue) ? yearValue : null }, coverage)
+      ? queryCoverage(
+          {
+            ...(make ? { make } : {}),
+            ...(model ? { model } : {}),
+            year: Number.isFinite(yearValue) ? yearValue : null,
+          },
+          coverage,
+        )
       : [],
   };
 }
