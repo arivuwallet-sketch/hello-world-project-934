@@ -42,6 +42,7 @@ function CanBusPage() {
   const { elm, state, protocolName } = useObd();
   const [running, setRunning] = useState(false);
   const [frames, setFrames] = useState<string[]>([]);
+  const [canDatasets, setCanDatasets] = useState<CanSignalDataset[]>([]);
   const [stats, setStats] = useState<Record<string, FrameStat>>({});
   const [filter, setFilter] = useState("");
   const [mode, setMode] = useState<PassiveMode>("all");
