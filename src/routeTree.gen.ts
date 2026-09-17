@@ -26,6 +26,7 @@ import { Route as DiagnosticTestsRouteImport } from './routes/diagnostic-tests'
 import { Route as DtcAnalysisRouteImport } from './routes/dtc-analysis'
 import { Route as EmissionsRouteImport } from './routes/emissions'
 import { Route as EvRouteImport } from './routes/ev'
+import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as EvidenceRecorderRouteImport } from './routes/evidence-recorder'
 import { Route as ExpertRouteImport } from './routes/expert'
 import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
@@ -35,11 +36,13 @@ import { Route as GraphsRouteImport } from './routes/graphs'
 import { Route as GuidedDiagnosticsRouteImport } from './routes/guided-diagnostics'
 import { Route as HealthRouteImport } from './routes/health'
 import { Route as LocalAgentRouteImport } from './routes/local-agent'
+import { Route as MeasurementsRouteImport } from './routes/measurements'
 import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as RepairComparisonRouteImport } from './routes/repair-comparison'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as ScopeRouteImport } from './routes/scope'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as ServiceFunctionsRouteImport } from './routes/service-functions'
@@ -135,6 +138,11 @@ const EvRoute = EvRouteImport.update({
   path: '/ev',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EvidenceRecorderRoute = EvidenceRecorderRouteImport.update({
   id: '/evidence-recorder',
   path: '/evidence-recorder',
@@ -180,6 +188,11 @@ const LocalAgentRoute = LocalAgentRouteImport.update({
   path: '/local-agent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeasurementsRoute = MeasurementsRouteImport.update({
+  id: '/measurements',
+  path: '/measurements',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerformanceRoute = PerformanceRouteImport.update({
   id: '/performance',
   path: '/performance',
@@ -203,6 +216,11 @@ const ReportsRoute = ReportsRouteImport.update({
 const SafetyRoute = SafetyRouteImport.update({
   id: '/safety',
   path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScopeRoute = ScopeRouteImport.update({
+  id: '/scope',
+  path: '/scope',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -269,6 +287,7 @@ export interface FileRoutesByFullPath {
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
+  '/evidence': typeof EvidenceRoute
   '/evidence-recorder': typeof EvidenceRecorderRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
@@ -278,11 +297,13 @@ export interface FileRoutesByFullPath {
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/local-agent': typeof LocalAgentRoute
+  '/measurements': typeof MeasurementsRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/repair-comparison': typeof RepairComparisonRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
+  '/scope': typeof ScopeRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/service-functions': typeof ServiceFunctionsRoute
@@ -311,6 +332,7 @@ export interface FileRoutesByTo {
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
+  '/evidence': typeof EvidenceRoute
   '/evidence-recorder': typeof EvidenceRecorderRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
@@ -320,11 +342,13 @@ export interface FileRoutesByTo {
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/local-agent': typeof LocalAgentRoute
+  '/measurements': typeof MeasurementsRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/repair-comparison': typeof RepairComparisonRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
+  '/scope': typeof ScopeRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/service-functions': typeof ServiceFunctionsRoute
@@ -354,6 +378,7 @@ export interface FileRoutesById {
   '/dtc-analysis': typeof DtcAnalysisRoute
   '/emissions': typeof EmissionsRoute
   '/ev': typeof EvRoute
+  '/evidence': typeof EvidenceRoute
   '/evidence-recorder': typeof EvidenceRecorderRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
@@ -363,11 +388,13 @@ export interface FileRoutesById {
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
   '/local-agent': typeof LocalAgentRoute
+  '/measurements': typeof MeasurementsRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/repair-comparison': typeof RepairComparisonRoute
   '/reports': typeof ReportsRoute
   '/safety': typeof SafetyRoute
+  '/scope': typeof ScopeRoute
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/service-functions': typeof ServiceFunctionsRoute
@@ -398,6 +425,7 @@ export interface FileRouteTypes {
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
+    | '/evidence'
     | '/evidence-recorder'
     | '/expert'
     | '/freeze-frame'
@@ -407,11 +435,13 @@ export interface FileRouteTypes {
     | '/guided-diagnostics'
     | '/health'
     | '/local-agent'
+    | '/measurements'
     | '/performance'
     | '/plugins'
     | '/repair-comparison'
     | '/reports'
     | '/safety'
+    | '/scope'
     | '/security'
     | '/service'
     | '/service-functions'
@@ -440,6 +470,7 @@ export interface FileRouteTypes {
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
+    | '/evidence'
     | '/evidence-recorder'
     | '/expert'
     | '/freeze-frame'
@@ -449,11 +480,13 @@ export interface FileRouteTypes {
     | '/guided-diagnostics'
     | '/health'
     | '/local-agent'
+    | '/measurements'
     | '/performance'
     | '/plugins'
     | '/repair-comparison'
     | '/reports'
     | '/safety'
+    | '/scope'
     | '/security'
     | '/service'
     | '/service-functions'
@@ -482,6 +515,7 @@ export interface FileRouteTypes {
     | '/dtc-analysis'
     | '/emissions'
     | '/ev'
+    | '/evidence'
     | '/evidence-recorder'
     | '/expert'
     | '/freeze-frame'
@@ -491,11 +525,13 @@ export interface FileRouteTypes {
     | '/guided-diagnostics'
     | '/health'
     | '/local-agent'
+    | '/measurements'
     | '/performance'
     | '/plugins'
     | '/repair-comparison'
     | '/reports'
     | '/safety'
+    | '/scope'
     | '/security'
     | '/service'
     | '/service-functions'
@@ -525,6 +561,7 @@ export interface RootRouteChildren {
   DtcAnalysisRoute: typeof DtcAnalysisRoute
   EmissionsRoute: typeof EmissionsRoute
   EvRoute: typeof EvRoute
+  EvidenceRoute: typeof EvidenceRoute
   EvidenceRecorderRoute: typeof EvidenceRecorderRoute
   ExpertRoute: typeof ExpertRoute
   FreezeFrameRoute: typeof FreezeFrameRoute
@@ -534,11 +571,13 @@ export interface RootRouteChildren {
   GuidedDiagnosticsRoute: typeof GuidedDiagnosticsRoute
   HealthRoute: typeof HealthRoute
   LocalAgentRoute: typeof LocalAgentRoute
+  MeasurementsRoute: typeof MeasurementsRoute
   PerformanceRoute: typeof PerformanceRoute
   PluginsRoute: typeof PluginsRoute
   RepairComparisonRoute: typeof RepairComparisonRoute
   ReportsRoute: typeof ReportsRoute
   SafetyRoute: typeof SafetyRoute
+  ScopeRoute: typeof ScopeRoute
   SecurityRoute: typeof SecurityRoute
   ServiceRoute: typeof ServiceRoute
   ServiceFunctionsRoute: typeof ServiceFunctionsRoute
@@ -671,6 +710,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EvRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evidence': {
+      id: '/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof EvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/evidence-recorder': {
       id: '/evidence-recorder'
       path: '/evidence-recorder'
@@ -734,6 +780,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocalAgentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/measurements': {
+      id: '/measurements'
+      path: '/measurements'
+      fullPath: '/measurements'
+      preLoaderRoute: typeof MeasurementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/performance': {
       id: '/performance'
       path: '/performance'
@@ -767,6 +820,13 @@ declare module '@tanstack/react-router' {
       path: '/safety'
       fullPath: '/safety'
       preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scope': {
+      id: '/scope'
+      path: '/scope'
+      fullPath: '/scope'
+      preLoaderRoute: typeof ScopeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -853,6 +913,7 @@ const rootRouteChildren: RootRouteChildren = {
   DtcAnalysisRoute: DtcAnalysisRoute,
   EmissionsRoute: EmissionsRoute,
   EvRoute: EvRoute,
+  EvidenceRoute: EvidenceRoute,
   EvidenceRecorderRoute: EvidenceRecorderRoute,
   ExpertRoute: ExpertRoute,
   FreezeFrameRoute: FreezeFrameRoute,
@@ -862,11 +923,13 @@ const rootRouteChildren: RootRouteChildren = {
   GuidedDiagnosticsRoute: GuidedDiagnosticsRoute,
   HealthRoute: HealthRoute,
   LocalAgentRoute: LocalAgentRoute,
+  MeasurementsRoute: MeasurementsRoute,
   PerformanceRoute: PerformanceRoute,
   PluginsRoute: PluginsRoute,
   RepairComparisonRoute: RepairComparisonRoute,
   ReportsRoute: ReportsRoute,
   SafetyRoute: SafetyRoute,
+  ScopeRoute: ScopeRoute,
   SecurityRoute: SecurityRoute,
   ServiceRoute: ServiceRoute,
   ServiceFunctionsRoute: ServiceFunctionsRoute,
