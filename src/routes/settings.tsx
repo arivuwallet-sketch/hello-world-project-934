@@ -102,8 +102,9 @@ function SettingsPage() {
   const matrix = featureMatrix({
     browserSupported: Boolean(support?.serial || support?.bluetooth || support?.usb),
     connected: state === "connected",
-    rawCanSupported: Boolean(capabilities?.rawCan),
-    nativeBridge: Boolean(capabilities?.programming),
+    // Neither capability is claimed until an adapter actually demonstrates it.
+    rawCanSupported: false,
+    nativeBridge: false,
     flashAuthorized: operator.authorized.includes("FLASH_ECU"),
     datasetsImported: datasetCount,
   });
