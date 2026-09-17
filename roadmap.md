@@ -21,3 +21,6 @@
 - [x] Feature availability labels and critical display validation
 - [x] Repository scan: no randomness or simulated data in production code
 - [x] Automated tests for roles, audit integrity, units, health, availability, plugins
+- [x] Importers for opendbc DBC, OBDb JSON, Torque CSV and iternio EV PID files with provenance + checksum
+- [x] CAN Monitor decodes frames using imported DBC databases (raw hex when no match)
+- [x] Reference catalogue of external sources with licence, permitted use and caveats
