@@ -63,6 +63,11 @@ function CanBusPage() {
   const statRef = useRef<Record<string, FrameStat>>({});
 
   useEffect(() => {
+    setCanDatasets(loadImportedCanDatasets());
+  }, []);
+
+
+  useEffect(() => {
     const t = setInterval(() => {
       if (bufRef.current.length) {
         setFrames((cur) => [...bufRef.current.slice(-300), ...cur].slice(0, 300));
