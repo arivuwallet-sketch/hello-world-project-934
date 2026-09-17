@@ -29,6 +29,7 @@ import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TuningRouteImport } from './routes/tuning'
 import { Route as VehicleRouteImport } from './routes/vehicle'
 
@@ -132,6 +133,11 @@ const SessionsRoute = SessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TuningRoute = TuningRouteImport.update({
   id: '/tuning',
   path: '/tuning',
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -188,6 +195,7 @@ export interface FileRoutesByTo {
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -213,6 +221,7 @@ export interface FileRoutesById {
   '/security': typeof SecurityRoute
   '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/settings': typeof SettingsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
@@ -263,6 +273,7 @@ export interface FileRouteTypes {
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   id:
@@ -287,6 +298,7 @@ export interface FileRouteTypes {
     | '/security'
     | '/service'
     | '/sessions'
+    | '/settings'
     | '/tuning'
     | '/vehicle'
   fileRoutesById: FileRoutesById
@@ -312,6 +324,7 @@ export interface RootRouteChildren {
   SecurityRoute: typeof SecurityRoute
   ServiceRoute: typeof ServiceRoute
   SessionsRoute: typeof SessionsRoute
+  SettingsRoute: typeof SettingsRoute
   TuningRoute: typeof TuningRoute
   VehicleRoute: typeof VehicleRoute
 }
@@ -458,6 +471,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tuning': {
       id: '/tuning'
       path: '/tuning'
@@ -496,6 +516,7 @@ const rootRouteChildren: RootRouteChildren = {
   SecurityRoute: SecurityRoute,
   ServiceRoute: ServiceRoute,
   SessionsRoute: SessionsRoute,
+  SettingsRoute: SettingsRoute,
   TuningRoute: TuningRoute,
   VehicleRoute: VehicleRoute,
 }
