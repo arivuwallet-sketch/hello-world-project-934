@@ -32,3 +32,7 @@
 - [x] 112 Triggered evidence recorder with pre/post buffers and SHA-256 exports
 - [x] 113 DTC correlation & evidence engine with sourced descriptions
 - [x] 114 Guided diagnostic evidence trees (expected never auto-filled)
+- [x] 115 Sourced service-function and active-test execution with applicability, safety, authorization, ECU response validation and audit
+- [x] 116 Authenticated loopback local-agent architecture with origin validation, pairing, request validation, rate limits and pluggable native drivers
+- [x] 117 Customer and engineering report modes with origin labels, hashes, signatures and raw evidence separation
+- [x] 118 Evidence-only automated diagnostic test center spanning hardware, transport, protocols, OBD, PID, DTC, VIN, OBFCM, EV, tuning and performance
