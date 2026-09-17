@@ -26,6 +26,7 @@ import { Route as HealthRouteImport } from './routes/health'
 import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as TuningRouteImport } from './routes/tuning'
 import { Route as VehicleRouteImport } from './routes/vehicle'
@@ -115,6 +116,11 @@ const SecurityRoute = SecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiceRoute = ServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsRoute = SessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/performance': typeof PerformanceRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/performance': typeof PerformanceRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
@@ -194,6 +202,7 @@ export interface FileRoutesById {
   '/performance': typeof PerformanceRoute
   '/safety': typeof SafetyRoute
   '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
   '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/performance'
     | '/safety'
     | '/security'
+    | '/service'
     | '/sessions'
     | '/tuning'
     | '/vehicle'
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/performance'
     | '/safety'
     | '/security'
+    | '/service'
     | '/sessions'
     | '/tuning'
     | '/vehicle'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/performance'
     | '/safety'
     | '/security'
+    | '/service'
     | '/sessions'
     | '/tuning'
     | '/vehicle'
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   PerformanceRoute: typeof PerformanceRoute
   SafetyRoute: typeof SafetyRoute
   SecurityRoute: typeof SecurityRoute
+  ServiceRoute: typeof ServiceRoute
   SessionsRoute: typeof SessionsRoute
   TuningRoute: typeof TuningRoute
   VehicleRoute: typeof VehicleRoute
@@ -411,6 +424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/service': {
+      id: '/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof ServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions': {
       id: '/sessions'
       path: '/sessions'
@@ -453,6 +473,7 @@ const rootRouteChildren: RootRouteChildren = {
   PerformanceRoute: PerformanceRoute,
   SafetyRoute: SafetyRoute,
   SecurityRoute: SecurityRoute,
+  ServiceRoute: ServiceRoute,
   SessionsRoute: SessionsRoute,
   TuningRoute: TuningRoute,
   VehicleRoute: VehicleRoute,
