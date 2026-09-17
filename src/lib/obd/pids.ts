@@ -97,7 +97,6 @@ export const PIDS: PidDef[] = [
     nominal: [70, 105],
     decode: (b) => (b[0] ?? 0) - 40,
     formula: "A − 40",
-    formula: "A − 40",
   },
   {
     id: "intakeTemp",
@@ -350,6 +349,7 @@ const EXTRA: PidDef[] = [
     bytes: 1,
     nominal: [80, 115],
     decode: (b) => (b[0] ?? 0) - 40,
+    formula: "A − 40",
   },
   {
     id: "fuelRate",
