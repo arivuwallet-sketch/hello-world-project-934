@@ -17,10 +17,19 @@ import { Route as CodesRouteImport } from './routes/codes'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as DeepScanRouteImport } from './routes/deep-scan'
+import { Route as EmissionsRouteImport } from './routes/emissions'
+import { Route as EvRouteImport } from './routes/ev'
 import { Route as ExpertRouteImport } from './routes/expert'
 import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
+import { Route as HealthRouteImport } from './routes/health'
+import { Route as PerformanceRouteImport } from './routes/performance'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as SecurityRouteImport } from './routes/security'
+import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as TuningRouteImport } from './routes/tuning'
 import { Route as VehicleRouteImport } from './routes/vehicle'
 
 const IndexRoute = IndexRouteImport.update({
@@ -63,6 +72,16 @@ const DeepScanRoute = DeepScanRouteImport.update({
   path: '/deep-scan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmissionsRoute = EmissionsRouteImport.update({
+  id: '/emissions',
+  path: '/emissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvRoute = EvRouteImport.update({
+  id: '/ev',
+  path: '/ev',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExpertRoute = ExpertRouteImport.update({
   id: '/expert',
   path: '/expert',
@@ -78,9 +97,44 @@ const GarageRoute = GarageRouteImport.update({
   path: '/garage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerformanceRoute = PerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceRoute = ServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SessionsRoute = SessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TuningRoute = TuningRouteImport.update({
+  id: '/tuning',
+  path: '/tuning',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VehicleRoute = VehicleRouteImport.update({
@@ -98,10 +152,19 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/emissions': typeof EmissionsRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/health': typeof HealthRoute
+  '/performance': typeof PerformanceRoute
+  '/reports': typeof ReportsRoute
+  '/safety': typeof SafetyRoute
+  '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesByTo {
@@ -113,10 +176,19 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/emissions': typeof EmissionsRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/health': typeof HealthRoute
+  '/performance': typeof PerformanceRoute
+  '/reports': typeof ReportsRoute
+  '/safety': typeof SafetyRoute
+  '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesById {
@@ -129,10 +201,19 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/emissions': typeof EmissionsRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
+  '/health': typeof HealthRoute
+  '/performance': typeof PerformanceRoute
+  '/reports': typeof ReportsRoute
+  '/safety': typeof SafetyRoute
+  '/security': typeof SecurityRoute
+  '/service': typeof ServiceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRouteTypes {
@@ -146,10 +227,19 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/emissions'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/health'
+    | '/performance'
+    | '/reports'
+    | '/safety'
+    | '/security'
+    | '/service'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -161,10 +251,19 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/emissions'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/health'
+    | '/performance'
+    | '/reports'
+    | '/safety'
+    | '/security'
+    | '/service'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   id:
     | '__root__'
@@ -176,10 +275,19 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/emissions'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
+    | '/health'
+    | '/performance'
+    | '/reports'
+    | '/safety'
+    | '/security'
+    | '/service'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   fileRoutesById: FileRoutesById
 }
@@ -192,10 +300,19 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   DataSourcesRoute: typeof DataSourcesRoute
   DeepScanRoute: typeof DeepScanRoute
+  EmissionsRoute: typeof EmissionsRoute
+  EvRoute: typeof EvRoute
   ExpertRoute: typeof ExpertRoute
   FreezeFrameRoute: typeof FreezeFrameRoute
   GarageRoute: typeof GarageRoute
+  HealthRoute: typeof HealthRoute
+  PerformanceRoute: typeof PerformanceRoute
+  ReportsRoute: typeof ReportsRoute
+  SafetyRoute: typeof SafetyRoute
+  SecurityRoute: typeof SecurityRoute
+  ServiceRoute: typeof ServiceRoute
   SessionsRoute: typeof SessionsRoute
+  TuningRoute: typeof TuningRoute
   VehicleRoute: typeof VehicleRoute
 }
 
@@ -257,6 +374,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DeepScanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emissions': {
+      id: '/emissions'
+      path: '/emissions'
+      fullPath: '/emissions'
+      preLoaderRoute: typeof EmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ev': {
+      id: '/ev'
+      path: '/ev'
+      fullPath: '/ev'
+      preLoaderRoute: typeof EvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/expert': {
       id: '/expert'
       path: '/expert'
@@ -278,11 +409,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GarageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/performance': {
+      id: '/performance'
+      path: '/performance'
+      fullPath: '/performance'
+      preLoaderRoute: typeof PerformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service': {
+      id: '/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof ServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sessions': {
       id: '/sessions'
       path: '/sessions'
       fullPath: '/sessions'
       preLoaderRoute: typeof SessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tuning': {
+      id: '/tuning'
+      path: '/tuning'
+      fullPath: '/tuning'
+      preLoaderRoute: typeof TuningRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vehicle': {
@@ -304,10 +484,19 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   DataSourcesRoute: DataSourcesRoute,
   DeepScanRoute: DeepScanRoute,
+  EmissionsRoute: EmissionsRoute,
+  EvRoute: EvRoute,
   ExpertRoute: ExpertRoute,
   FreezeFrameRoute: FreezeFrameRoute,
   GarageRoute: GarageRoute,
+  HealthRoute: HealthRoute,
+  PerformanceRoute: PerformanceRoute,
+  ReportsRoute: ReportsRoute,
+  SafetyRoute: SafetyRoute,
+  SecurityRoute: SecurityRoute,
+  ServiceRoute: ServiceRoute,
   SessionsRoute: SessionsRoute,
+  TuningRoute: TuningRoute,
   VehicleRoute: VehicleRoute,
 }
 export const routeTree = rootRouteImport
