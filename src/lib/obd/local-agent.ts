@@ -8,7 +8,7 @@ export class LocalAgentClient {
   setPairingToken(token: string) { this.token = token.trim() || null; }
   async probe(signal?: AbortSignal): Promise<AgentStatus> {
     try {
-      const response = await fetch(`http://127.0.0.1:${this.port}/v1/status`, { signal, headers: this.token ? { Authorization: `Bearer ${this.token}` } : {} });
+      const response = await fetch(`http://127.0.0.1:${this.port}/v1/status`, { signal: signal ?? null, headers: this.token ? { Authorization: `Bearer ${this.token}` } : {} });
       if (response.status === 401) return { state: "AGENT CONNECTED", version: null, paired: false, capabilities: null, adapters: [] };
       if (!response.ok) throw new Error(`LOCAL AGENT UNAVAILABLE [${response.status}]`);
       return await response.json() as AgentStatus;
