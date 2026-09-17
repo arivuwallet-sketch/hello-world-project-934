@@ -73,7 +73,6 @@ function CoveragePage() {
       importedAt: new Date().toISOString(),
       classification: "MANUFACTURER-SPECIFIC",
       originalFileName: file.name,
-      entryCount: undefined,
     });
     if (result.accepted.length === 0) {
       setNotice(`No entries accepted. ${result.rejected.map((item) => item.reason).join("; ")}`);
