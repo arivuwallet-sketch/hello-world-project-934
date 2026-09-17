@@ -17,6 +17,7 @@ import { Route as CodesRouteImport } from './routes/codes'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as DataSourcesRouteImport } from './routes/data-sources'
 import { Route as DeepScanRouteImport } from './routes/deep-scan'
+import { Route as EvRouteImport } from './routes/ev'
 import { Route as ExpertRouteImport } from './routes/expert'
 import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
@@ -63,6 +64,11 @@ const DeepScanRoute = DeepScanRouteImport.update({
   path: '/deep-scan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvRoute = EvRouteImport.update({
+  id: '/ev',
+  path: '/ev',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExpertRoute = ExpertRouteImport.update({
   id: '/expert',
   path: '/expert',
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/data-sources': typeof DataSourcesRoute
   '/deep-scan': typeof DeepScanRoute
+  '/ev': typeof EvRoute
   '/expert': typeof ExpertRoute
   '/freeze-frame': typeof FreezeFrameRoute
   '/garage': typeof GarageRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/data-sources'
     | '/deep-scan'
+    | '/ev'
     | '/expert'
     | '/freeze-frame'
     | '/garage'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   DataSourcesRoute: typeof DataSourcesRoute
   DeepScanRoute: typeof DeepScanRoute
+  EvRoute: typeof EvRoute
   ExpertRoute: typeof ExpertRoute
   FreezeFrameRoute: typeof FreezeFrameRoute
   GarageRoute: typeof GarageRoute
@@ -257,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DeepScanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ev': {
+      id: '/ev'
+      path: '/ev'
+      fullPath: '/ev'
+      preLoaderRoute: typeof EvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/expert': {
       id: '/expert'
       path: '/expert'
@@ -304,6 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   DataSourcesRoute: DataSourcesRoute,
   DeepScanRoute: DeepScanRoute,
+  EvRoute: EvRoute,
   ExpertRoute: ExpertRoute,
   FreezeFrameRoute: FreezeFrameRoute,
   GarageRoute: GarageRoute,
