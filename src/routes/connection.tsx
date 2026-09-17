@@ -74,7 +74,7 @@ function ConnectionWizardPage() {
     serial: support.serial || supportedSerial,
     bluetooth: support.bluetooth || supportedBluetooth,
     usb: support.usb,
-    localAgent: false,
+    localAgent: null,
     selectedAdapter: adapterName || null,
     selectedTransport: transport === "serial" ? "Web Serial (USB / COM)" : transport === "bluetooth" ? "Web Bluetooth (BLE)" : null,
     discoveredDevice: adapterName || null,
