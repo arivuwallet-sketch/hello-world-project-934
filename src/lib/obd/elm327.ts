@@ -292,21 +292,23 @@ export class Elm327 {
   async initialise(onStep?: (s: string) => void): Promise<void> {
     onStep?.("Resetting adapter…");
     const id = await this.send("ATZ", 8000);
-    this.adapterVersion = id.split("\n").filter(Boolean).pop() ?? "ELM327";
-    await this.send("ATE0");
-    await this.send("ATL0");
-    await this.send("ATS0");
-    await this.send("ATH0");
-    onStep?.("Negotiating protocol (auto)…");
-    await this.send("ATSP0");
-    const probe = await this.send("0100", 12000);
-    if (/UNABLE|ERROR|NO DATA|TIMEOUT|SEARCHING\.\.\.\s*$/i.test(probe) && !/41\s*00/i.test(probe)) {
-      // retry once — first attempt after ATSP0 often only completes the search
-      await this.send("0100", 12000);
+    if (isNegative(id) || !id.trim()) throw new Error("ADAPTER INITIALIZATION FAILED");
+    this.adapterVersion = id.split("\n").filter(Boolean).pop() as string;
+    for (const command of ["ATE0", "ATL0", "ATS0", "ATH0", "ATSP0"]) {
+      const response = await this.send(command);
+      if (!/\bOK\b/i.test(response)) throw new Error(`ADAPTER INITIALIZATION FAILED: ${command}`);
     }
+    onStep?.("Negotiating protocol (auto)…");
+    let probe = await this.send("0100", 12000);
+    if (!extractPayload(probe, 1, "00")) {
+      // retry once — first attempt after ATSP0 often only completes the search
+      probe = await this.send("0100", 12000);
+    }
+    if (!extractPayload(probe, 1, "00")) throw new Error("VEHICLE NOT RESPONDING");
     const dpn = (await this.send("ATDPN")).replace(/[^0-9A-Ca-c]/g, "").slice(-1).toUpperCase();
+    if (!dpn || !PROTOCOLS[dpn] || dpn === "0") throw new Error("PROTOCOL DETECTION FAILED");
     this.protocolCode = dpn || "?";
-    this.protocolName = PROTOCOLS[dpn] ?? "Unknown / not detected";
+    this.protocolName = PROTOCOLS[dpn] as string;
     onStep?.(`Protocol: ${this.protocolName}`);
   }
 
@@ -353,6 +355,10 @@ const NEGATIVE = /NO DATA|UNABLE|ERROR|STOPPED|SEARCHING|TIMEOUT|CAN ERROR|BUS/i
 
 export function isNegative(resp: string) {
   return !resp || NEGATIVE.test(resp) || /(?:^|\s)7F\s+[0-9A-F]{2}\s+[0-9A-F]{2}(?:\s|$)/i.test(resp);
+}
+
+export function hasPositiveModeResponse(resp: string, mode: number) {
+  return parseHexBytes(resp).includes(0x40 + mode);
 }
 
 /** Flatten an ELM327 hex reply into a byte array, dropping CAN multi-line indices. */

@@ -85,7 +85,7 @@ export function Gauge({ pid, value, size = "lg" }: GaugeProps) {
           fontSize={size === "lg" ? 28 : 22}
           fontWeight={600}
         >
-          {has ? (value as number).toFixed(def.decimals ?? 0) : "—"}
+          {has ? (value as number).toFixed(def.decimals ?? 0) : "UNAVAILABLE"}
         </text>
         <text
           x={cx}
@@ -112,7 +112,7 @@ export function MiniStat({ pid, value }: { pid: PidId; value: number | undefined
   const def = PID_BY_ID[pid];
   if (!def) return null;
   const has = typeof value === "number" && Number.isFinite(value);
-  const out = has ? (value as number).toFixed(def.decimals ?? 0) : "—";
+   const out = has ? (value as number).toFixed(def.decimals ?? 0) : "UNAVAILABLE";
   let tone = "text-foreground";
   if (has && def.nominal) {
     const [lo, hi] = def.nominal;
@@ -123,7 +123,7 @@ export function MiniStat({ pid, value }: { pid: PidId; value: number | undefined
       <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{def.short}</div>
       <div className={cn("readout text-lg font-semibold", tone)}>
         {out}
-        <span className="ml-1 text-xs font-normal text-muted-foreground">{def.unit}</span>
+        {has && <span className="ml-1 text-xs font-normal text-muted-foreground">{def.unit}</span>}
       </div>
     </div>
   );

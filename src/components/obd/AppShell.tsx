@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   ArrowLeftRight,
   Camera,
+  BookOpenCheck,
   Car,
   Cpu,
   Gauge as GaugeIcon,
@@ -41,6 +42,7 @@ const NAV = [
   { to: "/sessions", label: "Sessions", icon: History },
   { to: "/compare", label: "Compare", icon: ArrowLeftRight },
   { to: "/adapters", label: "Adapters", icon: Usb },
+  { to: "/data-sources", label: "Data Sources", icon: BookOpenCheck },
 ] as const;
 
 export const SHORTCUTS = [
@@ -85,7 +87,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-2 px-5 py-5">
           <Activity className="size-6 text-signal" />
           <div>
-            <div className="font-display text-base font-bold tracking-widest">TORQUEDECK</div>
+            <div className="font-display text-base font-bold tracking-wider">VEHICLE INSIGHT HUB</div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               Standards-based OBD-II scanner
             </div>

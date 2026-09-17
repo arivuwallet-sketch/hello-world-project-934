@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, CheckCircle2, Download, Pause, Play, Save } from "lucide-react";
+import { AlertTriangle, CircleOff, Download, Pause, Play, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Gauge, MiniStat } from "@/components/obd/Gauge";
@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TorqueDeck — Live OBD-II Diagnostics Dashboard" },
+      { title: "Vehicle Insight Hub — Live OBD-II Diagnostics" },
       {
         name: "description",
         content:
           "Browser-based OBD-II deep scanner: live sensor gauges, fault codes, freeze frame and CAN bus tools for USB and BLE ELM327 adapters.",
       },
-      { property: "og:title", content: "TorqueDeck — Live OBD-II Diagnostics Dashboard" },
+      { property: "og:title", content: "Vehicle Insight Hub — Live OBD-II Diagnostics" },
       {
         property: "og:description",
         content:
@@ -99,24 +99,26 @@ function Dashboard() {
             state !== "connected" ? "border-border" : milOn ? "border-danger/60" : "border-ok/40",
           )}
         >
-          {state === "connected" && milOn ? (
+          {state !== "connected" ? (
+            <CircleOff className="size-7 text-muted-foreground" />
+          ) : milOn ? (
             <AlertTriangle className="size-7 text-danger" />
           ) : (
-            <CheckCircle2 className="size-7 text-ok" />
+            <CircleOff className="size-7 text-ok" />
           )}
           <div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">
               Malfunction lamp
             </div>
             <div className="font-display text-lg font-semibold">
-              {state !== "connected" ? "—" : milOn ? "ON" : "Off"}
+               {state !== "connected" ? "UNAVAILABLE" : milOn ? "ON" : "OFF — ECU REPORTED"}
             </div>
           </div>
         </div>
         <Link to="/codes" className="panel flex items-center justify-between p-4 hover:border-signal/50">
           <div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">Stored codes</div>
-            <div className="readout text-2xl font-semibold">{state === "connected" ? dtcs.length || dtcCount : "—"}</div>
+            <div className="readout text-2xl font-semibold">{state === "connected" ? Math.max(dtcs.length, dtcCount) : "UNAVAILABLE"}</div>
           </div>
           <Badge variant={dtcs.length ? "destructive" : "secondary"}>
             {dtcs.length ? "Attention" : "Clear"}
@@ -125,7 +127,7 @@ function Dashboard() {
         <Link to="/codes" className="panel flex items-center justify-between p-4 hover:border-signal/50">
           <div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">Pending codes</div>
-            <div className="readout text-2xl font-semibold">{state === "connected" ? pendingDtcs.length : "—"}</div>
+            <div className="readout text-2xl font-semibold">{state === "connected" ? pendingDtcs.length : "UNAVAILABLE"}</div>
           </div>
           <Badge variant="secondary">Mode 07</Badge>
         </Link>

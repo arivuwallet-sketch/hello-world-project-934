@@ -14,6 +14,7 @@ import {
   bluetoothSupported,
   decodeDtcBytes,
   extractPayload,
+  hasPositiveModeResponse,
   isNegative,
   openBluetooth,
   openSerial,
@@ -35,6 +36,7 @@ import {
   type ReadinessResult,
 } from "./monitors";
 import { PIDS, PID_BY_ID, type PidDef, type PidId } from "./pids";
+import { classifyHardwareError } from "./errors";
 
 export interface EcuReport {
   header: string;
@@ -368,8 +370,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
       setMilOn((a & 0x80) !== 0);
       setDtcCount(a & 0x7f);
     } else {
-      setMilOn(false);
-      setDtcCount(0);
+      throw new Error("INVALID RESPONSE: Mode 01 PID 01");
     }
   }, [elm]);
 
@@ -647,7 +648,8 @@ export function ObdProvider({ children }: { children: ReactNode }) {
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
         setState(/cancel|No port selected|chooser/i.test(msg) ? "disconnected" : "error");
-        setStatusText(msg);
+        setStatusText(`${classifyHardwareError(e)}: ${msg}`);
+        await elm.close().catch(() => undefined);
         if (!/cancel|No port selected|chooser/i.test(msg)) {
           toast.error("Could not connect", { description: msg });
         }
@@ -687,16 +689,16 @@ export function ObdProvider({ children }: { children: ReactNode }) {
   }, [connect, disconnect, supportedSerial, transport]);
 
   const clearDtcs = useCallback(async () => {
-    if (!elm.connected) return;
+    if (!elm.connected) throw new Error("OBD ADAPTER NOT CONNECTED");
     const resp = await elm.send("04", 8000);
-    if (isNegative(resp)) {
+    if (isNegative(resp) || !hasPositiveModeResponse(resp, 4)) {
       toast.error("Clear rejected by the ECU", {
-        description: "Most vehicles only accept a clear with the ignition on and the engine off.",
+        description: `VERIFICATION FAILED: ${resp || "no ECU response"}`,
       });
       return;
     }
-    toast.success("Fault memory cleared", {
-      description: "Monitors are now 'not ready'. Drive a full cycle before an emissions test.",
+    toast.success("DTC CLEAR SUCCESSFUL", {
+      description: "The ECU returned the positive Mode 04 response. Readiness and freeze-frame data may have reset.",
     });
     setFreeze(null);
     markHistoryCleared();
@@ -714,7 +716,15 @@ export function ObdProvider({ children }: { children: ReactNode }) {
     let batchOk: boolean | null = null;
 
     const record = (id: PidId, value: number) => {
-      if (!Number.isFinite(value)) return;
+      const def = PID_BY_ID[id];
+      if (!def || !Number.isFinite(value) || value < def.min || value > def.max) {
+        setLive((cur) => {
+          const next = { ...cur };
+          delete next[id];
+          return next;
+        });
+        return;
+      }
       const now = Date.now();
       sampleCount.current += 1;
       const prevMax = maxima.current[id];
