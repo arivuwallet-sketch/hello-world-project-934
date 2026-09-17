@@ -1,10 +1,12 @@
 import { PID_BY_ID, type PidId } from "@/lib/obd/pids";
+import type { DecodedSignal } from "@/lib/obd/decoder";
 import { cn } from "@/lib/utils";
 
 interface GaugeProps {
   pid: PidId;
   value: number | undefined;
   size?: "lg" | "sm";
+  details?: DecodedSignal;
 }
 
 const ARC_START = 135;
@@ -22,7 +24,7 @@ function arcPath(cx: number, cy: number, r: number, from: number, to: number) {
   return `M ${a.x} ${a.y} A ${r} ${r} 0 ${large} 1 ${b.x} ${b.y}`;
 }
 
-export function Gauge({ pid, value, size = "lg" }: GaugeProps) {
+export function Gauge({ pid, value, size = "lg", details }: GaugeProps) {
   const def = PID_BY_ID[pid];
   if (!def) return null;
   const has = typeof value === "number" && Number.isFinite(value);
@@ -104,11 +106,14 @@ export function Gauge({ pid, value, size = "lg" }: GaugeProps) {
       >
         {def.label}
       </span>
+      <span className="readout text-[9px] uppercase tracking-wide text-muted-foreground">
+        {details ? `PID ${details.pid} · ${Math.round(details.latencyMs)} ms · ECU REPORTED` : "DATA NOT AVAILABLE"}
+      </span>
     </div>
   );
 }
 
-export function MiniStat({ pid, value }: { pid: PidId; value: number | undefined }) {
+export function MiniStat({ pid, value, details }: { pid: PidId; value: number | undefined; details?: DecodedSignal }) {
   const def = PID_BY_ID[pid];
   if (!def) return null;
   const has = typeof value === "number" && Number.isFinite(value);
@@ -124,6 +129,9 @@ export function MiniStat({ pid, value }: { pid: PidId; value: number | undefined
       <div className={cn("readout text-lg font-semibold", tone)}>
         {out}
         {has && <span className="ml-1 text-xs font-normal text-muted-foreground">{def.unit}</span>}
+      </div>
+      <div className="readout truncate text-[9px] uppercase text-muted-foreground">
+        {details ? `01${details.pid} · ${Math.round(details.latencyMs)} ms` : "DATA NOT AVAILABLE"}
       </div>
     </div>
   );

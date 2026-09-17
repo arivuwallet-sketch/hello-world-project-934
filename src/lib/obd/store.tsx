@@ -37,6 +37,7 @@ import {
 } from "./monitors";
 import { PIDS, PID_BY_ID, type PidDef, type PidId } from "./pids";
 import { classifyHardwareError } from "./errors";
+import { decodeMode01Signal, type DecodedSignal } from "./decoder";
 
 export interface EcuReport {
   header: string;
@@ -119,6 +120,7 @@ interface ObdContextValue {
   supportedSerial: boolean;
   supportedBluetooth: boolean;
   live: Partial<Record<PidId, number>>;
+  signalDetails: Partial<Record<PidId, DecodedSignal>>;
   history: Partial<Record<PidId, Sample[]>>;
   activePids: PidId[];
   setActivePids: (p: PidId[]) => void;
@@ -202,6 +204,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
   const [supportedBluetooth, setSupportedBluetooth] = useState(false);
 
   const [live, setLive] = useState<Partial<Record<PidId, number>>>({});
+  const [signalDetails, setSignalDetails] = useState<Partial<Record<PidId, DecodedSignal>>>({});
   const [history, setHistory] = useState<Partial<Record<PidId, Sample[]>>>({});
   const [activePids, setActivePids] = useState<PidId[]>([
     "rpm",
@@ -664,6 +667,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
     setStatusText("No adapter connected");
     setTransport(null);
     setLive({});
+    setSignalDetails({});
     setHistory({});
     setDtcs([]);
     setPendingDtcs([]);
@@ -715,21 +719,32 @@ export function ObdProvider({ children }: { children: ReactNode }) {
     /** null = not tried yet on this connection, false = vehicle rejected batching */
     let batchOk: boolean | null = null;
 
-    const record = (id: PidId, value: number) => {
+    const record = (id: PidId, rawResponse: string, latencyMs: number) => {
       const def = PID_BY_ID[id];
-      if (!def || !Number.isFinite(value) || value < def.min || value > def.max) {
+      if (!def) return;
+      let reading: DecodedSignal;
+      try {
+        reading = decodeMode01Signal(def, rawResponse, latencyMs);
+      } catch {
         setLive((cur) => {
+          const next = { ...cur };
+          delete next[id];
+          return next;
+        });
+        setSignalDetails((cur) => {
           const next = { ...cur };
           delete next[id];
           return next;
         });
         return;
       }
+      const value = reading.value;
       const now = Date.now();
       sampleCount.current += 1;
       const prevMax = maxima.current[id];
       if (prevMax == null || value > prevMax) maxima.current[id] = value;
       setLive((cur) => ({ ...cur, [id]: value }));
+      setSignalDetails((cur) => ({ ...cur, [id]: reading }));
       setHistory((cur) => {
         const arr = cur[id] ? [...(cur[id] as Sample[]), { t: now, v: value }] : [{ t: now, v: value }];
         if (arr.length > MAX_POINTS) arr.splice(0, arr.length - MAX_POINTS);
@@ -750,9 +765,9 @@ export function ObdProvider({ children }: { children: ReactNode }) {
     const readOne = async (id: PidId) => {
       const def = PID_BY_ID[id];
       if (!def) return;
+      const started = performance.now();
       const resp = await elm.send(`01${def.pid}`, 2500);
-      const payload = extractPayload(resp, 1, def.pid);
-      if (!payload || payload.length < def.bytes) {
+      if (!extractPayload(resp, 1, def.pid)) {
         setLive((cur) => {
           const next = { ...cur };
           delete next[id];
@@ -760,7 +775,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
         });
         return;
       }
-      record(id, def.decode(payload.slice(0, def.bytes)));
+      record(id, resp, performance.now() - started);
     };
 
     /** Returns false when the vehicle clearly did not answer the batched request. */
@@ -773,7 +788,9 @@ export function ObdProvider({ children }: { children: ReactNode }) {
       }
       const lengths: Record<string, number> = {};
       for (const d of defs) lengths[d.pid] = Math.max(lengths[d.pid] ?? 0, d.bytes);
+      const started = performance.now();
       const resp = await elm.send(`01${unique.join("")}`, 3000);
+      const latencyMs = performance.now() - started;
       const parsed = parseBatchResponse(resp, lengths);
       const answered = unique.filter((p) => parsed[p]).length;
       if (answered < unique.length) return false;
@@ -782,7 +799,8 @@ export function ObdProvider({ children }: { children: ReactNode }) {
         if (!def) continue;
         const data = parsed[def.pid];
         if (!data || data.length < def.bytes) continue;
-        record(id, def.decode(data.slice(0, def.bytes)));
+        const singleResponse = `41 ${def.pid} ${data.map((byte) => byte.toString(16).padStart(2, "0")).join(" ")}`;
+        record(id, singleResponse, latencyMs);
       }
       return true;
     };
@@ -908,6 +926,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
       supportedSerial,
       supportedBluetooth,
       live,
+      signalDetails,
       history,
       activePids,
       setActivePids,
@@ -958,7 +977,7 @@ export function ObdProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       state, statusText, adapterName, transport, protocolName, protocolCode,
-      supportedSerial, supportedBluetooth, live, history, activePids, polling,
+      supportedSerial, supportedBluetooth, live, signalDetails, history, activePids, polling,
       supportedPids, dtcs, pendingDtcs, permanentDtcs, milOn, dtcCount, vin,
       calId, ecuName, freeze, logEntries, vehicles, activeVehicleId, sessions,
       connect, disconnect, reconnect, scanDtcs, clearDtcs, readFreezeFrame,
