@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActuationsRouteImport } from './routes/actuations'
 import { Route as AdaptersRouteImport } from './routes/adapters'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as CanbusRouteImport } from './routes/canbus'
 import { Route as CodesRouteImport } from './routes/codes'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -46,6 +47,11 @@ const ActuationsRoute = ActuationsRouteImport.update({
 const AdaptersRoute = AdaptersRouteImport.update({
   id: '/adapters',
   path: '/adapters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CanbusRoute = CanbusRouteImport.update({
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -204,6 +212,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/actuations': typeof ActuationsRoute
   '/adapters': typeof AdaptersRoute
+  '/audit': typeof AuditRoute
   '/canbus': typeof CanbusRoute
   '/codes': typeof CodesRoute
   '/compare': typeof CompareRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/'
     | '/actuations'
     | '/adapters'
+    | '/audit'
     | '/canbus'
     | '/codes'
     | '/compare'
@@ -307,6 +319,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActuationsRoute: typeof ActuationsRoute
   AdaptersRoute: typeof AdaptersRoute
+  AuditRoute: typeof AuditRoute
   CanbusRoute: typeof CanbusRoute
   CodesRoute: typeof CodesRoute
   CompareRoute: typeof CompareRoute
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       path: '/adapters'
       fullPath: '/adapters'
       preLoaderRoute: typeof AdaptersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/canbus': {
@@ -499,6 +519,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActuationsRoute: ActuationsRoute,
   AdaptersRoute: AdaptersRoute,
+  AuditRoute: AuditRoute,
   CanbusRoute: CanbusRoute,
   CodesRoute: CodesRoute,
   CompareRoute: CompareRoute,
