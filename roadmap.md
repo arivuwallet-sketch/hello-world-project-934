@@ -24,3 +24,11 @@
 - [x] Importers for opendbc DBC, OBDb JSON, Torque CSV and iternio EV PID files with provenance + checksum
 - [x] CAN Monitor decodes frames using imported DBC databases (raw hex when no match)
 - [x] Reference catalogue of external sources with licence, permitted use and caveats
+- [x] 107 Connection wizard — 16 independently evidenced stages
+- [x] 108 Adapter health & identity with advertised/detected/verified capability table
+- [x] 109 Full vehicle scan orchestrator with real request-based progress
+- [x] 110 ECU network topology (graph + table) from responding modules only
+- [x] 111 Waveform engine with statistics, cursor, source and stale marking
+- [x] 112 Triggered evidence recorder with pre/post buffers and SHA-256 exports
+- [x] 113 DTC correlation & evidence engine with sourced descriptions
+- [x] 114 Guided diagnostic evidence trees (expected never auto-filled)
