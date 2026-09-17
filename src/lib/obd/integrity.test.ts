@@ -8,16 +8,20 @@ import { registerPlugin, unregisterPlugin, listPlugins } from "./plugins";
 
 const memory = new Map<string, string>();
 
+const storage = {
+  getItem: (key: string) => memory.get(key) ?? null,
+  setItem: (key: string, value: string) => void memory.set(key, value),
+  removeItem: (key: string) => void memory.delete(key),
+  clear: () => memory.clear(),
+  key: () => null,
+  length: 0,
+} as unknown as Storage;
+
 beforeEach(() => {
   memory.clear();
-  globalThis.localStorage = {
-    getItem: (key: string) => memory.get(key) ?? null,
-    setItem: (key: string, value: string) => void memory.set(key, value),
-    removeItem: (key: string) => void memory.delete(key),
-    clear: () => memory.clear(),
-    key: () => null,
-    length: 0,
-  } as unknown as Storage;
+  // The persistence helpers are browser-only; provide the storage they expect.
+  (globalThis as { window?: unknown }).window = { localStorage: storage };
+  globalThis.localStorage = storage;
 });
 
 describe("roles and permissions", () => {
