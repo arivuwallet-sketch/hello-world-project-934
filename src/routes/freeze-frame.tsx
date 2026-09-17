@@ -8,13 +8,13 @@ import { lookupDtc } from "@/lib/obd/dtc";
 export const Route = createFileRoute("/freeze-frame")({
   head: () => ({
     meta: [
-      { title: "Freeze Frame Data — TorqueDeck" },
+      { title: "Freeze Frame Data — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Read OBD-II Mode 02 freeze frame data: the exact engine conditions captured when the ECU stored a fault code.",
       },
-      { property: "og:title", content: "Freeze Frame Data — TorqueDeck" },
+      { property: "og:title", content: "Freeze Frame Data — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "The snapshot of engine conditions captured at the moment a fault was set.",

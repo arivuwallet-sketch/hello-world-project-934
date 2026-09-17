@@ -19,13 +19,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/garage")({
   head: () => ({
     meta: [
-      { title: "Garage — Multi-Vehicle Tracking — TorqueDeck" },
+      { title: "Garage — Multi-Vehicle Tracking — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Track several cars in one place: VIN, plate, odometer and notes per vehicle, with scan sessions filed against the right car.",
       },
-      { property: "og:title", content: "Garage — Multi-Vehicle Tracking — TorqueDeck" },
+      { property: "og:title", content: "Garage — Multi-Vehicle Tracking — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Keep every car you service in one garage with its own scan history.",

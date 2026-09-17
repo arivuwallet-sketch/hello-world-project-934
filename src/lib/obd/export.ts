@@ -105,7 +105,7 @@ export function exportSessionPdf(s: SessionRecord, technician = "") {
   doc.setFont("helvetica", "bold").setFontSize(18).text("Vehicle Diagnostic Report", left, y);
   y += 20;
   doc.setFont("helvetica", "normal").setFontSize(10);
-  doc.text("TorqueDeck — standards-based OBD-II scan", left, y);
+  doc.text("Vehicle Insight Hub — standards-based OBD-II scan", left, y);
   y += 16;
 
   heading("Vehicle & session");

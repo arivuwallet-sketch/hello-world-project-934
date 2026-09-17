@@ -10,13 +10,13 @@ import { isNegative } from "@/lib/obd/elm327";
 export const Route = createFileRoute("/canbus")({
   head: () => ({
     meta: [
-      { title: "CAN Bus Monitor — TorqueDeck" },
+      { title: "CAN Bus Monitor — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Sniff raw CAN frames through an ELM327 in monitor mode: live arbitration IDs, payloads, frame rates and per-ID traffic breakdown.",
       },
-      { property: "og:title", content: "CAN Bus Monitor — TorqueDeck" },
+      { property: "og:title", content: "CAN Bus Monitor — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Live raw CAN frame capture with per-ID statistics, straight in the browser.",

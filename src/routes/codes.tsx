@@ -20,13 +20,13 @@ import { DTC_DB_SIZE, SEVERITY_ORDER, isValidDtc, lookupDtc, type DtcInfo, type 
 export const Route = createFileRoute("/codes")({
   head: () => ({
     meta: [
-      { title: "Fault Codes & DTC Lookup — TorqueDeck" },
+      { title: "Fault Codes & DTC Lookup — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Read stored, pending and permanent OBD-II trouble codes with plain-English meanings, likely causes and severity ratings.",
       },
-      { property: "og:title", content: "Fault Codes & DTC Lookup — TorqueDeck" },
+      { property: "og:title", content: "Fault Codes & DTC Lookup — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Stored, pending and permanent DTCs explained in plain English with likely causes.",
@@ -143,19 +143,19 @@ function CodesPage() {
         ].map(([label, n]) => (
           <div key={label as string} className="panel p-4">
             <div className="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
-            <div className="readout text-2xl font-semibold">{n as number}</div>
+            <div className="readout text-2xl font-semibold">{state === "connected" ? (n as number) : "UNAVAILABLE"}</div>
           </div>
         ))}
         <div className="panel flex items-center gap-2 p-4">
           <ShieldAlert className={state === "connected" && milOn ? "size-6 text-danger" : "size-6 text-muted-foreground"} />
           <div>
             <div className="text-xs uppercase tracking-wider text-muted-foreground">MIL</div>
-            <div className="font-display font-semibold">{state !== "connected" ? "—" : milOn ? "Illuminated" : "Off"}</div>
+            <div className="font-display font-semibold">{state !== "connected" ? "UNAVAILABLE" : milOn ? "Illuminated" : "OFF — ECU REPORTED"}</div>
           </div>
         </div>
       </div>
 
-      {groups.length === 0 ? (
+      {state === "connected" && groups.length === 0 ? (
         <div className="panel p-6 text-sm text-muted-foreground">
           No trouble codes read from this ECU. If the warning light is on but nothing appears here,
           the fault may live in a non-emissions module (ABS, airbag, body) which generic OBD-II does
@@ -204,6 +204,9 @@ function CodesPage() {
               This hides the symptom, it does not fix the cause. The code returns the moment the
               fault repeats, freeze frame data is lost, and readiness monitors reset — the vehicle
               can fail an emissions test until a full drive cycle completes.
+              Target: all emissions-related ECUs responding to generic OBD Mode 04. Stored codes,
+              pending codes, and freeze-frame records may be erased. Permanent codes are controlled
+              by the ECU and may remain. Success is shown only after a positive ECU response.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

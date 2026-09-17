@@ -14,13 +14,13 @@ import { lookupVinDatabase } from "@/lib/obd/vin.functions";
 export const Route = createFileRoute("/vehicle")({
   head: () => ({
     meta: [
-      { title: "Vehicle Info & VIN Decode — TorqueDeck" },
+      { title: "Vehicle Info & VIN Decode — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Read Mode 09 vehicle information: VIN, calibration ID and ECU name, with a full VIN breakdown including manufacturer, region and model year.",
       },
-      { property: "og:title", content: "Vehicle Info & VIN Decode — TorqueDeck" },
+      { property: "og:title", content: "Vehicle Info & VIN Decode — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "VIN, calibration ID and ECU identification read straight from the controller.",

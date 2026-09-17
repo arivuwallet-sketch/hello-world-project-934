@@ -8,13 +8,13 @@ import { PID_BY_ID, type PidId } from "@/lib/obd/pids";
 export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
-      { title: "Before / After Session Comparison — TorqueDeck" },
+      { title: "Before / After Session Comparison — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Compare two saved scan sessions for the same vehicle to see which fault codes cleared, which are new and how live readings changed after a repair.",
       },
-      { property: "og:title", content: "Before / After Session Comparison — TorqueDeck" },
+      { property: "og:title", content: "Before / After Session Comparison — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Confirm a repair by diffing two saved OBD-II scan sessions for the same car.",

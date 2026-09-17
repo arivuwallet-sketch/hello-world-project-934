@@ -828,6 +828,12 @@ export function ObdProvider({ children }: { children: ReactNode }) {
 
   const saveSession = useCallback(
     (notes = "") => {
+      if (sampleCount.current === 0 || Object.values(history).every((samples) => !samples?.length)) {
+        toast.error("DATA NOT AVAILABLE", {
+          description: "A session can only be saved after at least one real ECU sample is received.",
+        });
+        return;
+      }
       const vehicle = vehicles.find((v) => v.id === activeVehicleId);
       const rec: SessionRecord = {
         id: uid(),

@@ -10,13 +10,13 @@ import { useObd } from "@/lib/obd/store";
 export const Route = createFileRoute("/expert")({
   head: () => ({
     meta: [
-      { title: "Expert Command Console — TorqueDeck" },
+      { title: "Expert Command Console — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Send raw ELM327 AT commands and OBD/UDS service requests, including Mode 08 bi-directional control, with a full transaction log.",
       },
-      { property: "og:title", content: "Expert Command Console — TorqueDeck" },
+      { property: "og:title", content: "Expert Command Console — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Raw ELM327 and UDS request console with an honest map of what a browser can and cannot do.",

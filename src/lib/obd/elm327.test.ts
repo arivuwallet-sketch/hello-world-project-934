@@ -1,5 +1,8 @@
 import { describe, expect, test } from "vitest";
-import { decodeDtcBytes, extractPayload, isNegative, parseBatchResponse, parseDtcResponse, parseHexBytes, parseVin } from "./elm327";
+import { decodeDtcBytes, extractPayload, hasPositiveModeResponse, isNegative, parseBatchResponse, parseDtcResponse, parseHexBytes, parseVin } from "./elm327";
+import { parseFlowControl, reassembleIsoTp } from "./isotp";
+import { parseObfcmResponse } from "./obfcm";
+import { parseUdsResponse } from "./uds";
 
 describe("ELM327 response parsing", () => {
   test("extracts a requested Mode 01 payload", () => {
@@ -35,5 +38,33 @@ describe("ELM327 response parsing", () => {
     expect(parseVin("NO DATA")).toBeNull();
     const duplicate = "49 02 01 31 48 47 43 4D 38 32 36 33 33 41 30 30 34 33 35 32";
     expect(parseVin(`${duplicate}\n${duplicate}`)).toBeNull();
+  });
+
+  test("requires the real positive service response before reporting a clear", () => {
+    expect(hasPositiveModeResponse("44", 4)).toBe(true);
+    expect(hasPositiveModeResponse("OK", 4)).toBe(false);
+    expect(hasPositiveModeResponse("7F 04 22", 4)).toBe(false);
+  });
+
+  test("reassembles ISO-TP and rejects a broken sequence", () => {
+    expect(reassembleIsoTp([[0x10, 0x09, 1, 2, 3, 4, 5, 6], [0x21, 7, 8, 9]])).toEqual({
+      payload: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      frameCount: 2,
+    });
+    expect(() => reassembleIsoTp([[0x10, 0x09, 1, 2, 3, 4, 5, 6], [0x22, 7, 8, 9]])).toThrow("INVALID ISO-TP FRAME");
+    expect(parseFlowControl([0x30, 8, 10])).toEqual({ status: 0, blockSize: 8, stMinMs: 10 });
+  });
+
+  test("parses UDS negative responses without treating them as success", () => {
+    expect(parseUdsResponse([0x7f, 0x22, 0x31])).toMatchObject({
+      positive: false,
+      requestService: 0x22,
+      negativeResponseCode: 0x31,
+    });
+  });
+
+  test("requires an actual Mode 09 InfoType 17 OBFCM payload", () => {
+    expect(parseObfcmResponse("49 17 01 02", "7E8", 10)).toMatchObject({ ecu: "7E8", timestamp: 10, payload: [1, 2] });
+    expect(() => parseObfcmResponse("NO DATA", "7E8")).toThrow("OBFCM DATA UNAVAILABLE");
   });
 });

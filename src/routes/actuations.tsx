@@ -12,9 +12,9 @@ import { MAKE_PROFILES, profileForMake, type MakeProfile } from "@/lib/obd/actua
 export const Route = createFileRoute("/actuations")({
   head: () => ({
     meta: [
-      { title: "Documented Actuation Console — TorqueDeck" },
+      { title: "Documented Actuation Console — Vehicle Insight Hub" },
       { name: "description", content: "Send documented manufacturer diagnostic requests and inspect the vehicle controller's unmodified response." },
-      { property: "og:title", content: "Documented Actuation Console — TorqueDeck" },
+      { property: "og:title", content: "Documented Actuation Console — Vehicle Insight Hub" },
       { property: "og:description", content: "A guarded console for verified vehicle-specific diagnostic requests without guessed routines." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -103,7 +103,7 @@ function ActuationsPage() {
 
       <section className="panel flex items-start gap-3 border-warn/40 p-4 text-sm">
         <AlertTriangle className="mt-0.5 size-5 shrink-0 text-warn" />
-        <p className="text-muted-foreground">TorqueDeck has no verified proprietary routine database for {profile.make}. Obtain the exact ECU address, request bytes, preconditions and recovery procedure from manufacturer service information for the VIN.</p>
+        <p className="text-muted-foreground">Vehicle Insight Hub has no verified proprietary routine database for {profile.make}. Obtain the exact ECU address, request bytes, preconditions and recovery procedure from manufacturer service information for the VIN.</p>
       </section>
 
       <section className="panel space-y-4 p-5">

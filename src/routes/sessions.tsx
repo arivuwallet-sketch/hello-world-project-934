@@ -14,13 +14,13 @@ export const Route = createFileRoute("/sessions")({
   }),
   head: () => ({
     meta: [
-      { title: "Scan Sessions & Reports — TorqueDeck" },
+      { title: "Scan Sessions & Reports — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Trip and scan session history with fault codes, peak live values and a printable PDF report for each visit.",
       },
-      { property: "og:title", content: "Scan Sessions & Reports — TorqueDeck" },
+      { property: "og:title", content: "Scan Sessions & Reports — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Saved diagnostic sessions with codes, peaks and printable reports.",

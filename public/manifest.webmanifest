@@ -1,6 +1,6 @@
 {
-  "name": "TorqueDeck OBD Scanner",
-  "short_name": "TorqueDeck",
+  "name": "Vehicle Insight Hub OBD Scanner",
+  "short_name": "Vehicle Insight Hub",
   "description": "Professional OBD-II diagnostics over Web Serial and BLE ELM327 adapters.",
   "start_url": "/",
   "scope": "/",

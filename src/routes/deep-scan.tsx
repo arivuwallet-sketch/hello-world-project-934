@@ -10,13 +10,13 @@ import type { MonitorStatus, ReadinessResult } from "@/lib/obd/monitors";
 export const Route = createFileRoute("/deep-scan")({
   head: () => ({
     meta: [
-      { title: "Standard OBD Deep Scan — TorqueDeck" },
+      { title: "Standard OBD Deep Scan — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Scan emissions-related OBD responders: fault memory, readiness monitors, Mode 06 test results and Mode 09 vehicle information.",
       },
-      { property: "og:title", content: "Standard OBD Deep Scan — TorqueDeck" },
+      { property: "og:title", content: "Standard OBD Deep Scan — Vehicle Insight Hub" },
       {
         property: "og:description",
         content:

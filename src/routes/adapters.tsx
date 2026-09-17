@@ -6,13 +6,13 @@ import { useObd } from "@/lib/obd/store";
 export const Route = createFileRoute("/adapters")({
   head: () => ({
     meta: [
-      { title: "Compatible OBD Adapters — TorqueDeck" },
+      { title: "Compatible OBD Adapters — Vehicle Insight Hub" },
       {
         name: "description",
         content:
           "Known-good USB and true-BLE ELM327/STN OBD-II adapters for browser diagnostics, and why classic Bluetooth SPP dongles can never connect.",
       },
-      { property: "og:title", content: "Compatible OBD Adapters — TorqueDeck" },
+      { property: "og:title", content: "Compatible OBD Adapters — Vehicle Insight Hub" },
       {
         property: "og:description",
         content: "Which OBD-II adapters work in the browser — USB serial and true BLE only.",
@@ -51,7 +51,7 @@ function AdaptersPage() {
       <header>
         <h1 className="font-display text-2xl font-bold tracking-wide">Compatible adapters</h1>
         <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-          TorqueDeck talks to your car through the browser. That limits it to two kinds of
+          Vehicle Insight Hub talks to your car through the browser. That limits it to two kinds of
           interface: USB-wired serial adapters and true Bluetooth Low Energy dongles.
         </p>
       </header>
@@ -150,7 +150,7 @@ function AdaptersPage() {
         </p>
         <p className="mt-2">
           Proprietary module scans, coding, security access and actuator routines require verified
-          service data and compatible factory/pass-thru hardware for the exact model. TorqueDeck does
+          service data and compatible factory/pass-thru hardware for the exact model. Vehicle Insight Hub does
           not substitute guessed commands for that manufacturer coverage.
         </p>
       </div>
