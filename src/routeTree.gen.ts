@@ -23,6 +23,7 @@ import { Route as FreezeFrameRouteImport } from './routes/freeze-frame'
 import { Route as GarageRouteImport } from './routes/garage'
 import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as SessionsRouteImport } from './routes/sessions'
+import { Route as TuningRouteImport } from './routes/tuning'
 import { Route as VehicleRouteImport } from './routes/vehicle'
 
 const IndexRoute = IndexRouteImport.update({
@@ -95,6 +96,11 @@ const SessionsRoute = SessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TuningRoute = TuningRouteImport.update({
+  id: '/tuning',
+  path: '/tuning',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VehicleRoute = VehicleRouteImport.update({
   id: '/vehicle',
   path: '/vehicle',
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/garage': typeof GarageRoute
   '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesByTo {
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/garage': typeof GarageRoute
   '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRoutesById {
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/garage': typeof GarageRoute
   '/performance': typeof PerformanceRoute
   '/sessions': typeof SessionsRoute
+  '/tuning': typeof TuningRoute
   '/vehicle': typeof VehicleRoute
 }
 export interface FileRouteTypes {
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/performance'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/performance'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   id:
     | '__root__'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/garage'
     | '/performance'
     | '/sessions'
+    | '/tuning'
     | '/vehicle'
   fileRoutesById: FileRoutesById
 }
@@ -222,6 +234,7 @@ export interface RootRouteChildren {
   GarageRoute: typeof GarageRoute
   PerformanceRoute: typeof PerformanceRoute
   SessionsRoute: typeof SessionsRoute
+  TuningRoute: typeof TuningRoute
   VehicleRoute: typeof VehicleRoute
 }
 
@@ -325,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tuning': {
+      id: '/tuning'
+      path: '/tuning'
+      fullPath: '/tuning'
+      preLoaderRoute: typeof TuningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vehicle': {
       id: '/vehicle'
       path: '/vehicle'
@@ -350,6 +370,7 @@ const rootRouteChildren: RootRouteChildren = {
   GarageRoute: GarageRoute,
   PerformanceRoute: PerformanceRoute,
   SessionsRoute: SessionsRoute,
+  TuningRoute: TuningRoute,
   VehicleRoute: VehicleRoute,
 }
 export const routeTree = rootRouteImport
