@@ -50,6 +50,8 @@ export interface PidDef {
   /** number of data bytes expected */
   bytes: number;
   decode: (b: number[]) => number;
+  /** Human-readable formula for source inspection. */
+  formula: string;
   /** green band for the gauge, optional */
   nominal?: [number, number];
   decimals?: number;
@@ -69,6 +71,7 @@ export const PIDS: PidDef[] = [
     bytes: 2,
     nominal: [600, 4000],
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 4),
+    formula: "((A × 256) + B) ÷ 4",
   },
   {
     id: "speed",
@@ -80,6 +83,7 @@ export const PIDS: PidDef[] = [
     max: 255,
     bytes: 1,
     decode: (b) => b[0] ?? 0,
+    formula: "A",
   },
   {
     id: "coolant",
@@ -92,6 +96,7 @@ export const PIDS: PidDef[] = [
     bytes: 1,
     nominal: [70, 105],
     decode: (b) => (b[0] ?? 0) - 40,
+    formula: "A − 40",
   },
   {
     id: "intakeTemp",
@@ -103,6 +108,7 @@ export const PIDS: PidDef[] = [
     max: 120,
     bytes: 1,
     decode: (b) => (b[0] ?? 0) - 40,
+    formula: "A − 40",
   },
   {
     id: "throttle",
@@ -115,6 +121,7 @@ export const PIDS: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "engineLoad",
@@ -127,6 +134,7 @@ export const PIDS: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "stft1",
@@ -140,6 +148,7 @@ export const PIDS: PidDef[] = [
     nominal: [-10, 10],
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) - 128) * (100 / 128), 1),
+    formula: "(A − 128) × 100 ÷ 128",
   },
   {
     id: "ltft1",
@@ -153,6 +162,7 @@ export const PIDS: PidDef[] = [
     nominal: [-10, 10],
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) - 128) * (100 / 128), 1),
+    formula: "(A − 128) × 100 ÷ 128",
   },
   {
     id: "stft2",
@@ -166,6 +176,7 @@ export const PIDS: PidDef[] = [
     nominal: [-10, 10],
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) - 128) * (100 / 128), 1),
+    formula: "(A − 128) × 100 ÷ 128",
   },
   {
     id: "ltft2",
@@ -179,6 +190,7 @@ export const PIDS: PidDef[] = [
     nominal: [-10, 10],
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) - 128) * (100 / 128), 1),
+    formula: "(A − 128) × 100 ÷ 128",
   },
   {
     id: "map",
@@ -190,6 +202,7 @@ export const PIDS: PidDef[] = [
     max: 255,
     bytes: 1,
     decode: (b) => b[0] ?? 0,
+    formula: "A",
   },
   {
     id: "maf",
@@ -202,6 +215,7 @@ export const PIDS: PidDef[] = [
     bytes: 2,
     decimals: 2,
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 100, 2),
+    formula: "((A × 256) + B) ÷ 100",
   },
   {
     id: "o2b1s1",
@@ -215,6 +229,7 @@ export const PIDS: PidDef[] = [
     decimals: 3,
     nominal: [0.1, 0.9],
     decode: (b) => c((b[0] ?? 0) / 200, 3),
+    formula: "A ÷ 200",
   },
   {
     id: "o2b1s2",
@@ -228,6 +243,7 @@ export const PIDS: PidDef[] = [
     decimals: 3,
     nominal: [0.1, 0.9],
     decode: (b) => c((b[0] ?? 0) / 200, 3),
+    formula: "A ÷ 200",
   },
   {
     id: "fuelLevel",
@@ -240,6 +256,7 @@ export const PIDS: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c(((b[0] ?? 0) * 100) / 255, 1),
+    formula: "A × 100 ÷ 255",
   },
   {
     id: "voltage",
@@ -253,6 +270,7 @@ export const PIDS: PidDef[] = [
     decimals: 2,
     nominal: [13.2, 14.8],
     decode: (b) => c(((b[0] ?? 0) * 256 + (b[1] ?? 0)) / 1000, 2),
+    formula: "((A × 256) + B) ÷ 1000",
   },
   {
     id: "timing",
@@ -265,6 +283,7 @@ export const PIDS: PidDef[] = [
     bytes: 1,
     decimals: 1,
     decode: (b) => c((b[0] ?? 0) / 2 - 64, 1),
+    formula: "A ÷ 2 − 64",
   },
   {
     id: "ambient",
@@ -276,6 +295,7 @@ export const PIDS: PidDef[] = [
     max: 80,
     bytes: 1,
     decode: (b) => (b[0] ?? 0) - 40,
+    formula: "A − 40",
   },
   {
     id: "fuelPressure",
@@ -287,6 +307,7 @@ export const PIDS: PidDef[] = [
     max: 765,
     bytes: 1,
     decode: (b) => (b[0] ?? 0) * 3,
+    formula: "A × 3",
   },
   {
     id: "baro",
@@ -298,6 +319,7 @@ export const PIDS: PidDef[] = [
     max: 255,
     bytes: 1,
     decode: (b) => b[0] ?? 0,
+    formula: "A",
   },
   {
     id: "runtime",
@@ -309,6 +331,7 @@ export const PIDS: PidDef[] = [
     max: 65535,
     bytes: 2,
     decode: (b) => (b[0] ?? 0) * 256 + (b[1] ?? 0),
+    formula: "(A × 256) + B",
   },
 ];
 
