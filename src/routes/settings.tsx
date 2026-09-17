@@ -18,7 +18,7 @@ import {
 } from "@/lib/obd/roles";
 import { appendAudit } from "@/lib/obd/audit";
 import { featureMatrix } from "@/lib/obd/availability";
-import { listDatasets } from "@/lib/obd/dataset-registry";
+import { signalRegistry } from "@/lib/obd/registry";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
