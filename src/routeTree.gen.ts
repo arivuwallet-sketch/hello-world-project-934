@@ -31,6 +31,7 @@ import { Route as GarageRouteImport } from './routes/garage'
 import { Route as GraphsRouteImport } from './routes/graphs'
 import { Route as GuidedDiagnosticsRouteImport } from './routes/guided-diagnostics'
 import { Route as HealthRouteImport } from './routes/health'
+import { Route as LocalAgentRouteImport } from './routes/local-agent'
 import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as PluginsRouteImport } from './routes/plugins'
 import { Route as ReportsRouteImport } from './routes/reports'
@@ -153,6 +154,11 @@ const HealthRoute = HealthRouteImport.update({
   path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocalAgentRoute = LocalAgentRouteImport.update({
+  id: '/local-agent',
+  path: '/local-agent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerformanceRoute = PerformanceRouteImport.update({
   id: '/performance',
   path: '/performance',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/graphs': typeof GraphsRoute
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
+  '/local-agent': typeof LocalAgentRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/graphs': typeof GraphsRoute
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
+  '/local-agent': typeof LocalAgentRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
@@ -303,6 +311,7 @@ export interface FileRoutesById {
   '/graphs': typeof GraphsRoute
   '/guided-diagnostics': typeof GuidedDiagnosticsRoute
   '/health': typeof HealthRoute
+  '/local-agent': typeof LocalAgentRoute
   '/performance': typeof PerformanceRoute
   '/plugins': typeof PluginsRoute
   '/reports': typeof ReportsRoute
@@ -340,6 +349,7 @@ export interface FileRouteTypes {
     | '/graphs'
     | '/guided-diagnostics'
     | '/health'
+    | '/local-agent'
     | '/performance'
     | '/plugins'
     | '/reports'
@@ -375,6 +385,7 @@ export interface FileRouteTypes {
     | '/graphs'
     | '/guided-diagnostics'
     | '/health'
+    | '/local-agent'
     | '/performance'
     | '/plugins'
     | '/reports'
@@ -410,6 +421,7 @@ export interface FileRouteTypes {
     | '/graphs'
     | '/guided-diagnostics'
     | '/health'
+    | '/local-agent'
     | '/performance'
     | '/plugins'
     | '/reports'
@@ -446,6 +458,7 @@ export interface RootRouteChildren {
   GraphsRoute: typeof GraphsRoute
   GuidedDiagnosticsRoute: typeof GuidedDiagnosticsRoute
   HealthRoute: typeof HealthRoute
+  LocalAgentRoute: typeof LocalAgentRoute
   PerformanceRoute: typeof PerformanceRoute
   PluginsRoute: typeof PluginsRoute
   ReportsRoute: typeof ReportsRoute
@@ -615,6 +628,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/local-agent': {
+      id: '/local-agent'
+      path: '/local-agent'
+      fullPath: '/local-agent'
+      preLoaderRoute: typeof LocalAgentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/performance': {
       id: '/performance'
       path: '/performance'
@@ -718,6 +738,7 @@ const rootRouteChildren: RootRouteChildren = {
   GraphsRoute: GraphsRoute,
   GuidedDiagnosticsRoute: GuidedDiagnosticsRoute,
   HealthRoute: HealthRoute,
+  LocalAgentRoute: LocalAgentRoute,
   PerformanceRoute: PerformanceRoute,
   PluginsRoute: PluginsRoute,
   ReportsRoute: ReportsRoute,
